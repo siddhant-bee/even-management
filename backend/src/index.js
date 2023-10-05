@@ -1,28 +1,37 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const cors = require('cors')
-const path = require('path');
-const PORT = 5001
-const Task = require('./mongodb')
-require('./mongodb.js')
+const cors = require("cors");
+const path = require("path");
+const PORT = 5001;
+const Task = require("./mongodb");
+require("./mongodb.js");
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
-app.post('/login',(req,res)=>{
-    console.log(req.body)
-    const user = new Task(req.body);
-    user.save();
-    res.send(user);
+app.post("/signup", (req, res) => {
+  console.log(req.body);
+  const user = new Task(req.body);
+  user.save();
+  res.send(user);
 
-    // console.log(email);
- 
-})
+  // console.log(email);
+});
 
+app.post("/login", async (req, res) => {
+  try {
+    const result = await Task.findOne({ email: `${req.body.email}` });
 
+    if (result) {
+      if (result.password === req.body.password) {
+        res.send("Success");
+      } else res.status(203).send("wrong password");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
 
-
-
-app.listen(PORT,()=>{
-    console.log(`Listening on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
