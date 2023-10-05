@@ -1,32 +1,17 @@
 <template>
-    <div>
-      <h2>Login</h2>
-      <form @submit.prevent>
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            v-model="email"
-            required
-            placeholder="Enter your email"
-          />
-        </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            v-model="password"
-            required
-            placeholder="Enter your password"
-          />
-        </div>
-        <button  @click="login">Login</button>
-      </form>
-    </div>
-  </template>
+  <div class="allcover">
 
+    <h1>login</h1>
+    <div class="login">
+      <input type="text " v-model="email" placeholder=" Enter Email" />
+      <input type="password" v-model="password" placeholder=" Enter password" />
+      <button v-on:click="login">log in</button>
+      <p>
+        <router-link to="/signup">sign up</router-link>
+      </p>
+    </div>
+  </div>
+</template>
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
@@ -43,6 +28,8 @@ try{
     email: email.value,
     password: password.value
   })
+
+  console.log(res.data)
   console.log(res.status)
   if(res.status === 200){
     router.push({ name: 'home' });
@@ -56,60 +43,41 @@ console.log(error)
 }
 
 </script>
-
 <style scoped>
-/* Center the login container vertically and horizontally */
-.login-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+.logo {
+  width: 200px;
+}
+.allcover {
+  text-align: center;
 }
 
-/* Style the form */
-.login-form {
-  background-color: #f0f0f0;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+.login input:hover {
+  box-shadow: #686767 2px 2px 5px 5px;
+}
+
+.login input {
   width: 300px;
+  height: 40px;
+  border-radius: 15px;
+  padding-left: 20px;
+  display: BLOCK;
+
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px SOLID #ff7e01;
 }
 
-.form-group {
-  margin-bottom: 15px;
+.login button:hover {
+  box-shadow: #686767 5px 5px 5px 5px;
 }
 
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-button {
-  background-color: #007bff;
-  color: #fff;
-  margin-left: 575px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 3px;
+.login button {
+  width: 320px;
+  height: 40px;
+  border-radius: 15px;
+  border: 1px #ff7e01;
+  background-color: #ff7e01;
   cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #0056b3;
 }
 </style>
-
-
-
