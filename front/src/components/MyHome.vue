@@ -32,6 +32,17 @@
   </div>
 </div>
 
+
+
+<div class="card" style="width: 18rem;">
+  <img src="../assets/role.png" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h3>Change role</h3>
+    <p class="card-text">From here Admin can change  role.</p>
+  </div>
+</div>
+
+
 </div>
 
     </div>
