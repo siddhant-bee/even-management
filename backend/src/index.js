@@ -3,7 +3,8 @@ const app = express();
 const cors = require("cors");
 const path = require("path");
 const PORT = 5001;
-const Task = require("./mongodb");
+const {collection} = require("./mongodb");
+const {eventCollection} = require("./mongodb")
 require("./mongodb.js");
 
 app.use(cors());
@@ -22,7 +23,7 @@ app.post("/signup", (req, res) => {
 //login
 app.post("/login", async (req, res) => {
   try {
-    const result = await Task.findOne({ email: `${req.body.email}` });
+    const result = await collection.findOne({ email: `${req.body.email}` });
 
     if (result) {
       if (result.password === req.body.password) {
@@ -44,6 +45,14 @@ app.get("/users", async (req, res) => {
 })
 
 
+
+app.post('/addEvent', async (req, res) => {
+  const { title , description, date, time, location, image, price, totalNoOfSlots, noOfAvailableSlots } = req.body
+  const eventData = new eventCollection({ title, description, date, time, location, image, price,totalNoOfSlots, noOfAvailableSlots })
+   await eventData.save()
+   res.send(eventData)
+  
+})
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);

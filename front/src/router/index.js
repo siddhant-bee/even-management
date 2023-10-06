@@ -3,10 +3,14 @@ import login from "../components/MyLogin.vue"
 import home from "../components/MyHome.vue"
 import signup from "../components/MySignup.vue"
 import navbar from "../components/MyNavbar.vue"
-import addevent from "../components/AddEventPage.vue"
+import addeventpage from "../components/AddEventPage.vue"
 // import key from 'core-js/library/fn/symbol/key-for'
 import formlink from "../components/FormLink"
+
 import changerole from "../components/ChangeRole.vue"
+
+import EventForm from "../components/EventForm"
+
 
 const routes = [
   {
@@ -23,9 +27,9 @@ const routes = [
     name: 'signup',
     component: signup
   },{
-    path: '/addevent',
-    name: 'addevent',
-    component: addevent
+    path: '/addeventpage',
+    name: 'addeventpage',
+    component: addeventpage
   },
   {
     path: '/navbar',
@@ -38,9 +42,15 @@ const routes = [
     component: formlink
   },
   {
+
     path: '/changerole',
     name: 'changerole',
     component: changerole
+
+    path:'/addevent',
+    name:'/addevent',
+    component:EventForm
+
   }
 ]
 
