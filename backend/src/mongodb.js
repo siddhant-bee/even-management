@@ -19,6 +19,45 @@ const User_data = new mongoose.Schema({
        
     }
 })
+const event_data = new mongoose.Schema({
+    title:{
+        type:String,
+        required:true
+    },
+    description:{
+        type:String,
+        required:true
+    },
+    date:{
+        type:String,
+        required:true
+    },
+    time:{
+        type:String,
+        required:true
+    },
+    location:{
+        type:String,
+        required:true
+    },
+    image:{
+        type:String,
+        required:true
+    },
+    totalNoOfSlots:{
+        type:Number,
+        required:true
+    },
+    noOfAvailableSlots:{
+        type:Number,
+        required:true
+    }
+})
+const eventCollection = new mongoose.model('event_data',event_data)
+
 
 const collection = new mongoose.model('User_data',User_data)
-module.exports = collection
+module.exports = {
+    collection,
+    eventCollection
+}
