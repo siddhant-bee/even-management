@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+
     <MyNavbar />
     <div class="container mt-5">
       <div class="carrd">
@@ -24,6 +24,17 @@
               bulk of the card's content.
             </p>
           </div>
+
+        </div>
+
+        <div class="card" style="width: 18rem" @click="router.push({ name: 'changerole' })">
+          <img src="../assets/role.png" class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h3>Change role</h3>
+            <p class="card-text">From here Admin can change role.</p>
+          </div>
+
+
         </div>
 
         <div class="card" style="width: 18rem">
@@ -40,6 +51,7 @@
     </div>
   </div>
 
+
   <div class="card" style="width: 18rem">
     <img src="../assets/role.png" class="card-img-top" alt="..." />
     <div class="card-body">
@@ -48,10 +60,12 @@
     </div>
   </div>
   </div>
+
 </template>
 
 <script setup>
 import MyNavbar from "./MyNavbar.vue";
+
 import { useRouter } from "vue-router";
 const router = useRouter();
 
