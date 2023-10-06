@@ -15,6 +15,9 @@
 
 </div>
 
+
+
+<!-- //get link -->
 <div class="make_link" @click="$router.push({ name: 'formlink' })">
 
 

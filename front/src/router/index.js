@@ -6,6 +6,7 @@ import navbar from "../components/MyNavbar.vue"
 import addevent from "../components/AddEventPage.vue"
 // import key from 'core-js/library/fn/symbol/key-for'
 import formlink from "../components/FormLink"
+import changerole from "../components/ChangeRole.vue"
 
 const routes = [
   {
@@ -35,6 +36,11 @@ const routes = [
     path: '/formlink',
     name: 'formlink',
     component: formlink
+  },
+  {
+    path: '/changerole',
+    name: 'changerole',
+    component: changerole
   }
 ]
 
