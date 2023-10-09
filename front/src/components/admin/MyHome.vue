@@ -3,7 +3,7 @@
 
     <MyNavbar />
 <div class="carrd">
-  <div class="container " v-for="event in events" :key="event._id">
+  <div class="container"  style="width: 33%" v-for="event in events" :key="event._id">
   <div class="card" style="width: 18rem;">
   <img :src="event.image" class="card-img-top" alt="Loding Image">
   <div class="card-body">
@@ -65,12 +65,15 @@ router.push({name:"editevent", params: {id:event._id}});
 <style scoped>
 .carrd {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   padding-left: 50px;
   padding-right: 50px;
   cursor: pointer;
   margin-left: 200PX;
-  margin-top: 50px;
+
+margin-bottom: 50px;
+  /* margin-top: 50px; */
 
 }
 .card-img-top {
@@ -82,7 +85,7 @@ router.push({name:"editevent", params: {id:event._id}});
 
 
 .card{
-
+margin-top: 50px;
   transition: box-shadow 0.3s ease; /* Add a smooth transition effect */
 }
 
