@@ -24,7 +24,7 @@
               </div>
               <div class="d-flex flex-row">
                 <h5><label for="date" class="title">Date : </label></h5>
-                <h5 class="title">- {{ event.date }}</h5>
+                <h5 class="titles">- {{ event.date }}</h5>
               </div>
               <div class="d-flex flex-row">
                 <h5><label for="time" class="title">Time : </label></h5>
