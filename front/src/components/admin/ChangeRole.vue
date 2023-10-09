@@ -100,7 +100,7 @@
 </template>
 
 <script setup>
-import MyNavbarVue from "../components/MyNavbar.vue";
+import MyNavbarVue from "./MyNavbar.vue";
 import axios from "axios";
 import { ref, onMounted, watch } from "vue";
 

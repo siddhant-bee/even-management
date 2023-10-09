@@ -77,7 +77,7 @@ click
 </template>
 
 <script setup>
-import MyNavbar from "./MyNavbar.vue";
+import MyNavbar from "./admin/MyNavbar.vue";
 </script>
 
 <style scoped></style>

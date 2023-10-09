@@ -7,7 +7,7 @@
     <div class="carrd">
       <div class="fill_form" @click="fill_form">
         <div class="card" style="width: 18rem">
-          <img src="../assets/fillform.png" class="card-img-top" alt="" />
+          <img src="../../assets/fillform.png" class="card-img-top" alt="" />
           <div class="card-body">
             <h3>FILL YOUR FORM</h3>
             <br />
@@ -18,7 +18,7 @@
 
       <div class="make_link" @click="$router.push({ name: 'formlink' })">
         <div class="card" style="width: 18rem">
-          <img src="../assets/link.png" class="card-img-top" alt="" />
+          <img src="../../assets/link.png" class="card-img-top" alt="" />
           <div class="card-body">
             <h3>GET LINK</h3>
             <br />
@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import MyNavbarVue from "../components/MyNavbar.vue"
+import MyNavbarVue from "./MyNavbar.vue"
 import {useRouter} from 'vue-router'
 const router = useRouter()
 const fill_form = () => {
