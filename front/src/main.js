@@ -6,4 +6,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // import './assets/tailwind.css'
 //  import './assets/tailwind.css'
 
-createApp(App).use(router).mount('#app')
+
+
+const app = createApp(App)
+
+
+
+app.use(router)
+
+
+
+app.mount('#app')

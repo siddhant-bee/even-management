@@ -1,5 +1,14 @@
 <template>
+  <MyNavbar/>
   <div class="container">
+    
+
+<div class="row">
+  <div class="col-8 mx-auto" >
+
+
+
+
     <form @submit.prevent="submit">
       <div class="row mb-3">
         <label for="title" class="col-sm-2 col-form-label">Title</label>
@@ -86,59 +95,61 @@
           />
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" style="margin-left: 450px;" >Submit</button>
     </form>
+  </div>
+</div>
+
   </div>
 </template>
 
 <script>
+import MyNavbar from "./MyNavbar.vue";
+// import MyNavbar from "./MyNavbar.vue";
 import axios from "axios";
 export default {
-  data() {
-    return {
-      title: "",
-      description: "",
-      date: "",
-      time: "",
-      location: "",
-      image: "",
-      price: "",
-      totalNoOfSlots: "",
-      noOfAvailableSlots: "",
-    };
-  },
-  methods: {
-    submit() {
-      console.log(
-        this.title,
-        this.description,
-        this.date,
-        this.time,
-        this.location,
-        this.image,
-        this.price,
-        this.totalNoOfSlots,
-        this.noOfAvailableSlots
-      );
-      axios
-        .post("http://localhost:5001/addEvent", {
-          title: this.title,
-          description: this.description,
-          date: this.date,
-          time: this.time,
-          location: this.location,
-          image: this.image,
-          price: this.price,
-          totalNoOfSlots: this.totalNoOfSlots,
-          noOfAvailableSlots: this.noOfAvailableSlots,
-        })
-        .then((res) => {
-          console.log(res);
-          this.$router.push("/home");
-        });
+    data() {
+        return {
+            title: "",
+            description: "",
+            date: "",
+            time: "",
+            location: "",
+            image: "",
+            price: "",
+            totalNoOfSlots: "",
+            noOfAvailableSlots: "",
+        };
     },
-  },
+    methods: {
+        submit() {
+            console.log(this.title, this.description, this.date, this.time, this.location, this.image, this.price, this.totalNoOfSlots, this.noOfAvailableSlots);
+            axios
+                .post("http://localhost:5001/addEvent", {
+                title: this.title,
+                description: this.description,
+                date: this.date,
+                time: this.time,
+                location: this.location,
+                image: this.image,
+                price: this.price,
+                totalNoOfSlots: this.totalNoOfSlots,
+                noOfAvailableSlots: this.noOfAvailableSlots,
+            })
+                .then((res) => {
+                console.log(res);
+                this.$router.push("/home");
+            });
+        },
+    },
+    components: { MyNavbar }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style  scoped>
+
+.container{
+  margin-top: 50px;
+}
+
+</style>
