@@ -13,6 +13,7 @@ import EventForm from "../components/admin/EventForm"
 import editevent from "../components/admin/EditForm.vue"
 import tryin from "../components/ImTryin.vue"
 import printerhome from "../components/printer/PrinterHome.vue"
+import bookticket from "../components/printer/BookTicket.vue"
 
 const routes = [
   {
@@ -68,6 +69,10 @@ const routes = [
     path: '/printerhome',
     name: 'printerhome',
     component: printerhome
+  },{
+    path: '/bookticket/:id',
+    name: 'bookticket',
+    component: bookticket
   }
 ]
 
