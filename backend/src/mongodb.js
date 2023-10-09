@@ -21,7 +21,7 @@ const User_data = new mongoose.Schema({
     role:{
         type:String,
         required:true,
-        default:"user"
+        default:"User"
 
     }
 })
@@ -48,6 +48,10 @@ const event_data = new mongoose.Schema({
     },
     image:{
         type:String,
+        required:true
+    },
+    price:{
+        type:Number,
         required:true
     },
     totalNoOfSlots:{

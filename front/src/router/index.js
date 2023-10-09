@@ -10,6 +10,8 @@ import formlink from "../components/FormLink"
 import changerole from "../components/ChangeRole.vue"
 
 import EventForm from "../components/EventForm"
+import editevent from "../components/EditForm.vue"
+import tryin from "../components/ImTryin.vue"
 
 
 const routes = [
@@ -45,12 +47,22 @@ const routes = [
 
     path: '/changerole',
     name: 'changerole',
-    component: changerole
-
+    component: changerole},
+{
     path:'/addevent',
     name:'/addevent',
     component:EventForm
 
+  },
+  {
+    path: '/tryin',
+    name: 'tryin',
+    component: tryin
+  },
+  {
+    path: '/editevent/:id',
+    name: 'editevent',
+    component: editevent
   }
 ]
 

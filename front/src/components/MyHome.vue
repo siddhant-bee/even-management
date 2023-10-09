@@ -2,89 +2,95 @@
   <div>
 
     <MyNavbar />
-    <div class="container mt-5">
-      <div class="carrd">
-        <div class="card" style="width: 18rem" @click="addEvent">
-          <img src="../assets/event.png" class="card-img-top" alt="" />
-          <div class="card-body">
-            <h3>Add Event Details</h3>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-          </div>
-        </div>
-
-        <div class="card" style="width: 18rem">
-          <img src="../assets/live.jpg" class="card-img-top" alt="" />
-          <div class="card-body">
-            <h3>All Live Events</h3>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-          </div>
-
-        </div>
-
-        <div class="card" style="width: 18rem" @click="router.push({ name: 'changerole' })">
-          <img src="../assets/role.png" class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h3>Change role</h3>
-            <p class="card-text">From here Admin can change role.</p>
-          </div>
-
-
-        </div>
-
-        <div class="card" style="width: 18rem">
-          <img src="../assets/payment.jpg" class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h3>Payment Details</h3>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="carrd">
+  <div class="container " v-for="event in events" :key="event._id">
+  <div class="card" style="width: 18rem;">
+  <img :src="event.image" class="card-img-top" alt="Loding Image">
+  <div class="card-body">
+    <h5 class="card-title">{{ event.title }}</h5>
+    <p class="card-text">{{ event.description }}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Price : {{ event.price }}rs</li>
+    <li class="list-group-item">Date : {{ event.date }} Time : {{ event.time }}</li>
+    <li class="list-group-item">Total Seat: {{ event.totalNoOfSlots }} Available Seat :{{ event.noOfAvailableSlots }}</li>
+  </ul>
+  <div class="card-body">
+    <a @click="editEvent(event)" class="card-link">Edit Event</a>
+    <a href="#" class="card-link">Book Ticket</a>
+  </div>
+</div>
+</div>
+</div>
   </div>
 
 
-  <div class="card" style="width: 18rem">
-    <img src="../assets/role.png" class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h3>Change role</h3>
-      <p class="card-text">From here Admin can change role.</p>
-    </div>
-  </div>
-  </div>
+  
 
 </template>
 
 <script setup>
 import MyNavbar from "./MyNavbar.vue";
+import { onMounted,ref } from "vue";
+import axios  from "axios";
+import router from "@/router";
+// import { useRouter } from "vue-router";
+// const router = useRouter();
+const events = ref([])
+onMounted(() => {
+  getEvents()
+})
 
-import { useRouter } from "vue-router";
-const router = useRouter();
 
-const addEvent = () => {
-  console.log("event add kro");
-  router.push({ name: "addeventpage" });
+const getEvents = async () => {
+  try {
+    const res = await axios.get("http://localhost:5001/events");
+    console.log(res.data);
+    events.value = res.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
+
+
+const editEvent = async (event) => {
+  // console.log(event);
+  console.log(event._id);
+// const res = await axios.get(`http://localhost:5001/editevent/${event._id}`);
+// console.log(res.data);
+router.push({name:"editevent", params: {id:event._id}});
+}
 </script>
 
 <style scoped>
 .carrd {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   padding-left: 50px;
   padding-right: 50px;
   cursor: pointer;
+  margin-left: 200PX;
+  margin-top: 50px;
+
 }
 .card-img-top {
   width: 286px;
   height: 250px;
 }
+
+
+
+
+.card{
+
+  transition: box-shadow 0.3s ease; /* Add a smooth transition effect */
+}
+
+
+
+
+.card:hover {
+  box-shadow: 0 0 10px rgba(10, 10, 0, 0.5); /* Add a shadow on hover */
+}
+
 </style>

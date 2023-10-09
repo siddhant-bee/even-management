@@ -1,5 +1,8 @@
 <template>
-  <div>
+
+<MyNavbarVue/>
+
+  <div style=" margin-top: 50px;">
     <!-- <h1>mai hu ek add event page</h1> -->
     <div class="carrd">
       <div class="fill_form" @click="fill_form">
@@ -30,6 +33,7 @@
 </template>
 
 <script setup>
+import MyNavbarVue from "../components/MyNavbar.vue"
 import {useRouter} from 'vue-router'
 const router = useRouter()
 const fill_form = () => {
