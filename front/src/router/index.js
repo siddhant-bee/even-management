@@ -1,18 +1,18 @@
 import{createRouter,createWebHistory} from 'vue-router'
 import login from "../components/MyLogin.vue"
-import home from "../components/MyHome.vue"
+import home from "../components/admin/MyHome.vue"
 import signup from "../components/MySignup.vue"
-import navbar from "../components/MyNavbar.vue"
-import addeventpage from "../components/AddEventPage.vue"
+import navbar from "../components/admin/MyNavbar.vue"
+import addeventpage from "../components/admin/AddEventPage.vue"
 // import key from 'core-js/library/fn/symbol/key-for'
-import formlink from "../components/FormLink"
+import formlink from "../components/admin/FormLink"
 
-import changerole from "../components/ChangeRole.vue"
+import changerole from "../components/admin/ChangeRole.vue"
 
-import EventForm from "../components/EventForm"
-import editevent from "../components/EditForm.vue"
+import EventForm from "../components/admin/EventForm"
+import editevent from "../components/admin/EditForm.vue"
 import tryin from "../components/ImTryin.vue"
-
+import printerhome from "../components/printer/PrinterHome.vue"
 
 const routes = [
   {
@@ -63,6 +63,11 @@ const routes = [
     path: '/editevent/:id',
     name: 'editevent',
     component: editevent
+  },
+  {
+    path: '/printerhome',
+    name: 'printerhome',
+    component: printerhome
   }
 ]
 
