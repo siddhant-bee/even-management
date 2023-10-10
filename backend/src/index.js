@@ -23,9 +23,13 @@ app.post("/signup", (req, res) => {
 
 app.post("/bookticket", async (req, res) => {
   try {
+
+    const aval = await eventCollection.findOne({ _id: req.body.eventID });
+    console.log(aval.noOfAvailableSlots);
     
     const { name, email, phone, noofticket, event,avaltick,eventID ,id} = req.body;
-    const final = avaltick-noofticket 
+    const final = aval.noOfAvailableSlots-noofticket 
+    console.log("renaiing",final);
     const bookingData = new booking({
       name,
       email,
