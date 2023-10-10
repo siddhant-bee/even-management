@@ -2,6 +2,8 @@
   <div>
 
     <MyNavbar />
+
+    {{ hour }}: {{ min }}
 <div class="carrd">
   <div class="container"  style="width: 33%" v-for="event in events" :key="event._id">
   <div class="card" style="width: 18rem;">
@@ -36,6 +38,9 @@ import axios  from "axios";
 import router from "@/router";
 // import { useRouter } from "vue-router";
 // const router = useRouter();
+let now = new Date();
+let hour = now.getHours();
+let min = now.getMinutes();
 const events = ref([])
 onMounted(() => {
   getEvents()
