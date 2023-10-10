@@ -55,7 +55,10 @@ const event_data = new mongoose.Schema({
     type: String,
     required: true,
   },
-  
+  availablefromDate:{
+    type: String,
+    required: true,
+  },
   location: {
     type: String,
     required: true,

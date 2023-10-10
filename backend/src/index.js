@@ -66,7 +66,7 @@ app.post("/addEvent", async (req, res) => {
     toDate,
     endtime,
     tillDate,
-   
+    availablefromDate,
     location,
     image,
     backgroundImage,
@@ -84,7 +84,7 @@ app.post("/addEvent", async (req, res) => {
     
     tillDate,
 
-    
+    availablefromDate,
     location,
     image,
     backgroundImage,
@@ -144,7 +144,7 @@ app.put("/editEvent", async (req, res) => {
         toDate: req.body.toDate,
         endtime: req.body.endtime,
         tillDate: req.body.tillDate,
-        
+        startfromticket: req.body.startfromticket,
         location: req.body.location,
         image: req.body.image,
         backgroundImage: req.body.backgroundImage,

@@ -117,8 +117,9 @@
 <script setup>
 import axios from "axios"
 import {ref,onMounted} from "vue"
-import { useRoute } from "vue-router";
+import { useRoute,useRouter } from "vue-router";
 const route = useRoute();
+const router = useRouter();
 const id = ref(route.params.id)
 const name = ref("")
 const email = ref("")
@@ -150,6 +151,7 @@ const book = async ()=>{
             avaltick: avaltick.value,
             id:id.value
         })
+router.push({name:"printerhome"})
         console.log(res.data)
     } catch (error) {
         console.log(error)
