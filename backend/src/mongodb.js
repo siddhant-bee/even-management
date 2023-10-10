@@ -35,19 +35,36 @@ const event_data = new mongoose.Schema({
     type: String,
     required: true,
   },
-  date: {
+  fromDate:{
     type: String,
     required: true,
   },
-  time: {
+  starttime:{
     type: String,
     required: true,
   },
+  toDate:{
+    type: String,
+    required: true,
+  },
+  endtime:{
+    type: String,
+    required: true,
+  },
+  tillDate:{
+    type: String,
+    required: true,
+  },
+  
   location: {
     type: String,
     required: true,
   },
   image: {
+    type: String,
+    required: true,
+  },
+  backgroundImage: {
     type: String,
     required: true,
   },
