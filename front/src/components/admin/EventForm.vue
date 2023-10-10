@@ -29,27 +29,64 @@
             </div>
           </div>
           <div class="row mb-3">
-            <label for="date" class="col-sm-2 col-form-label">Date</label>
+            <label for="date" class="col-sm-2 col-form-label">From Date</label>
             <div class="col-sm-10">
               <input
                 type="date"
                 class="form-control"
                 id="date"
-                v-model="date"
+                v-model="fromDate"
               />
             </div>
           </div>
           <div class="row mb-3">
-            <label for="time" class="col-sm-2 col-form-label">Time</label>
+            <label for="time" class="col-sm-2 col-form-label"> Starting Time</label>
             <div class="col-sm-10">
               <input
                 type="time"
                 class="form-control"
                 id="time"
-                v-model="time"
+                v-model="starttime"
               />
             </div>
           </div>
+
+          <div class="row mb-3">
+            <label for="date" class="col-sm-2 col-form-label">TO Date</label>
+            <div class="col-sm-10">
+              <input
+                type="date"
+                class="form-control"
+                id="date"
+                v-model="toDate"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="date" class="col-sm-2 col-form-label"
+              >Tickets Available Till</label
+            >
+            <div class="col-sm-10">
+              <input
+                type="date"
+                class="form-control"
+                id="date"
+                v-model="tillDate"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="time" class="col-sm-2 col-form-label">Ending Time</label>
+            <div class="col-sm-10">
+              <input
+                type="time"
+                class="form-control"
+                id="time"
+                v-model="endtime"
+              />
+            </div>
+          </div>
+
           <div class="row mb-3">
             <label for="location" class="col-sm-2 col-form-label"
               >Location</label
@@ -71,6 +108,19 @@
                 class="form-control"
                 id="image"
                 v-model="image"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="backgroundImage" class="col-sm-2 col-form-label"
+              >Background Image</label
+            >
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="image"
+                v-model="backgroundImage"
               />
             </div>
           </div>
@@ -133,10 +183,14 @@ export default {
     return {
       title: "",
       description: "",
-      date: "",
-      time: "",
+      fromDate: "",
+      toDate: "",
+      tillDate: "",
+      endtime: "",
+      starttime: "",
       location: "",
       image: "",
+      backgroundImage: "",
       price: "",
       totalNoOfSlots: "",
       noOfAvailableSlots: "",
@@ -147,10 +201,14 @@ export default {
       console.log(
         this.title,
         this.description,
-        this.date,
-        this.time,
+        this.fromDate,
+        this.toDate,
+        this.tillDate,
+        this.endtime,
+        this.starttime,
         this.location,
         this.image,
+        this.backgroundImage,
         this.price,
         this.totalNoOfSlots,
         this.noOfAvailableSlots
@@ -159,10 +217,14 @@ export default {
         .post("http://localhost:5001/addEvent", {
           title: this.title,
           description: this.description,
-          date: this.date,
-          time: this.time,
+          fromDate: this.fromDate,
+          toDate: this.toDate,
+          tillDate: this.tillDate,
+          endtime: this.endtime,
+          starttime: this.starttime,
           location: this.location,
           image: this.image,
+          backgroundImage: this.backgroundImage,
           price: this.price,
           totalNoOfSlots: this.totalNoOfSlots,
           noOfAvailableSlots: this.noOfAvailableSlots,

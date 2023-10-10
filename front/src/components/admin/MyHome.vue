@@ -12,7 +12,7 @@
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item">Price : {{ event.price }}rs</li>
-    <li class="list-group-item">Date : {{ event.date }} Time : {{ event.time }}</li>
+    <li class="list-group-item">Date : {{ event.startDate }} Time : {{ event.starttime }}</li>
     <li class="list-group-item">Total Seat: {{ event.totalNoOfSlots }} Available Seat :{{ event.noOfAvailableSlots }}</li>
   </ul>
   <div class="card-body">

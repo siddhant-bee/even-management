@@ -61,10 +61,15 @@ app.post("/addEvent", async (req, res) => {
   const {
     title,
     description,
-    date,
-    time,
+    fromDate,
+    starttime,
+    toDate,
+    endtime,
+    tillDate,
+   
     location,
     image,
+    backgroundImage,
     price,
     totalNoOfSlots,
     noOfAvailableSlots,
@@ -72,10 +77,17 @@ app.post("/addEvent", async (req, res) => {
   const eventData = new eventCollection({
     title,
     description,
-    date,
-    time,
+    fromDate,
+    starttime,
+    toDate,
+    endtime,
+    
+    tillDate,
+
+    
     location,
     image,
+    backgroundImage,
     price,
     totalNoOfSlots,
     noOfAvailableSlots,
@@ -127,10 +139,15 @@ app.put("/editEvent", async (req, res) => {
       $set: {
         title: req.body.title,
         description: req.body.description,
-        date: req.body.date,
-        time: req.body.time,
+        fromDate: req.body.fromDate,
+        starttime: req.body.starttime,
+        toDate: req.body.toDate,
+        endtime: req.body.endtime,
+        tillDate: req.body.tillDate,
+        
         location: req.body.location,
         image: req.body.image,
+        backgroundImage: req.body.backgroundImage,
         price: req.body.price,
         totalNoOfSlots: req.body.totalNoOfSlots,
         noOfAvailableSlots: req.body.noOfAvailableSlots,

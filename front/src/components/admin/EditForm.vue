@@ -30,27 +30,61 @@
             </div>
           </div>
           <div class="row mb-3">
-            <label for="date" class="col-sm-2 col-form-label">Date</label>
+            <label for="date" class="col-sm-2 col-form-label">From Date</label>
             <div class="col-sm-10">
               <input
                 type="date"
                 class="form-control"
                 id="date"
-                v-model="date"
+                v-model="fromDate"
               />
             </div>
           </div>
           <div class="row mb-3">
-            <label for="time" class="col-sm-2 col-form-label">Time</label>
+            <label for="time" class="col-sm-2 col-form-label">Starting Time</label>
             <div class="col-sm-10">
               <input
                 type="time"
                 class="form-control"
                 id="time"
-                v-model="time"
+                v-model="starttime"
               />
             </div>
           </div>
+          <div class="row mb-3">
+            <label for="date" class="col-sm-2 col-form-label">TO Date</label>
+            <div class="col-sm-10">
+              <input
+                type="date"
+                class="form-control"
+                id="date"
+                v-model="toDate"
+              />
+            </div>
+          </div>
+           <div class="row mb-3">
+            <label for="time" class="col-sm-2 col-form-label">Ending Time</label>
+            <div class="col-sm-10">
+              <input
+                type="time"
+                class="form-control"
+                id="time"
+                v-model="endtime"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="date" class="col-sm-2 col-form-label">Tickets Available Till</label>
+            <div class="col-sm-10">
+              <input
+                type="date"
+                class="form-control"
+                id="date"
+                v-model="tillDate"
+              />
+            </div>
+          </div>
+         
           <div class="row mb-3">
             <label for="location" class="col-sm-2 col-form-label"
               >Location</label
@@ -72,6 +106,17 @@
                 class="form-control"
                 id="image"
                 v-model="image"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="backgroundImage" class="col-sm-2 col-form-label">Background Image</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="image"
+                v-model="backgroundImage"
               />
             </div>
           </div>
@@ -137,10 +182,14 @@ const router = useRouter()
 // const id = route.params.id;
 const title = ref("");
 const description = ref("");
-const date = ref("");
-const time = ref("");
+const fromDate = ref("");
+const toDate = ref("");
+const tillDate = ref("");
+const starttime = ref("");
+const endtime = ref("");
 const location = ref("");
 const image = ref("");
+const backgroundImage = ref("");
 const price = ref("");
 const totalNoOfSlots = ref("");
 const noOfAvailableSlots = ref("");
@@ -161,10 +210,14 @@ const callkr = async () => {
   pta.value = datafrombackend.value._id;
   title.value = datafrombackend.value.title;
   description.value = datafrombackend.value.description;
-  date.value = datafrombackend.value.date;
-  time.value = datafrombackend.value.time;
+  fromDate.value = datafrombackend.value.date;
+  toDate.value = datafrombackend.value.tillDate;
+  tillDate.value = datafrombackend.value.tillDate;
+  starttime.value = datafrombackend.value.starttime;
+  endtime.value = datafrombackend.value.endtime;
   location.value = datafrombackend.value.location;
   image.value = datafrombackend.value.image;
+  backgroundImage.value = datafrombackend.value.backgroundImage;
   price.value = datafrombackend.value.price;
   totalNoOfSlots.value = datafrombackend.value.totalNoOfSlots;
   noOfAvailableSlots.value = datafrombackend.value.noOfAvailableSlots;
@@ -176,10 +229,14 @@ const submit = async () => {
     const res = await axios.put("http://localhost:5001/editEvent", {
       title: title.value,
       description: description.value,
-      date: date.value,
-      time: time.value,
+      fromDate: fromDate.value,
+      toDate: toDate.value,
+      tillDate: tillDate.value,
+      endtime: endtime.value,
+      starttime: starttime.value,
       location: location.value,
       image: image.value,
+      backgroundImage: backgroundImage.value,
       price: price.value,
       totalNoOfSlots: totalNoOfSlots.value,
       noOfAvailableSlots: noOfAvailableSlots.value,
