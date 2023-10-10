@@ -63,6 +63,28 @@
             </div>
           </div>
           <div class="row mb-3">
+            <label for="time" class="col-sm-2 col-form-label">Ending Time</label>
+            <div class="col-sm-10">
+              <input
+                type="time"
+                class="form-control"
+                id="time"
+                v-model="endtime"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="date" class="col-sm-2 col-form-label">ticket available Date</label>
+            <div class="col-sm-10">
+              <input
+                type="date"
+                class="form-control"
+                id="date"
+                v-model="availablefromDate"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
             <label for="date" class="col-sm-2 col-form-label"
               >Tickets Available Till</label
             >
@@ -75,17 +97,8 @@
               />
             </div>
           </div>
-          <div class="row mb-3">
-            <label for="time" class="col-sm-2 col-form-label">Ending Time</label>
-            <div class="col-sm-10">
-              <input
-                type="time"
-                class="form-control"
-                id="time"
-                v-model="endtime"
-              />
-            </div>
-          </div>
+      
+          
 
           <div class="row mb-3">
             <label for="location" class="col-sm-2 col-form-label"
@@ -186,6 +199,7 @@ export default {
       fromDate: "",
       toDate: "",
       tillDate: "",
+      availablefromDate: "",
       endtime: "",
       starttime: "",
       location: "",
@@ -204,6 +218,7 @@ export default {
         this.fromDate,
         this.toDate,
         this.tillDate,
+        this.availablefromDate,
         this.endtime,
         this.starttime,
         this.location,
@@ -220,6 +235,7 @@ export default {
           fromDate: this.fromDate,
           toDate: this.toDate,
           tillDate: this.tillDate,
+          availablefromDate: this.availablefromDate,
           endtime: this.endtime,
           starttime: this.starttime,
           location: this.location,
