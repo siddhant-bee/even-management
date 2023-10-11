@@ -1,22 +1,22 @@
 <template>
   <div>
+    <MyNavbar />
     <div
       class="d-flex fd-column maindiv"
       :style="{
         backgroundImage: ` linear-gradient(90deg, rgb(26, 26, 26) 24.97%, rgb(26, 26, 26) 38.3%, rgba(26, 26, 26, 0.04) 97.47%, rgb(26, 26, 26) 100%), url('${event.backgroundImage}')`,
       }"
     >
-      <div class="d-flex fd-column col-7">
-        <div class="col-7 d-flex flex-row">
+      <div class="d-flex fd-column col-8">
+        <div class="col-6 d-flex flex-row">
           <div class="col-2"></div>
           <div class="col-10 d-flex justify-content-center align-items-center">
             <img class="img h-75 w-75" :src="event.image" alt="" />
           </div>
         </div>
-        <div class="col-5 d-flex justify-content-start align-items-center">
+        <div class="col-6 d-flex justify-content-start align-items-center">
           <div class="h-75 d-flex flex-column justify-content-around">
             <div>
-              
               <h2 class="title">{{ event.title }}</h2>
             </div>
             <div>
@@ -24,8 +24,8 @@
             </div>
             <div class="d-flex flex-row">
               <h5><label for="date" class="title">Date : </label></h5>
-              
-              <h5 class="title">- {{ event.formDate }}</h5>
+
+              <h5 class="title">- {{ event.fromDate }}</h5>
             </div>
             <div class="d-flex flex-row">
               <h5><label for="time" class="title">Time : </label></h5>
@@ -35,10 +35,15 @@
               <h5><label for="location" class="title">Location : </label></h5>
               <h5 class="title">- {{ event.location }}</h5>
             </div>
+            <div class="d-flex flex-row">
+              <a :href="event.locationLink" target="_blank">
+              <button class="btn btn-outline-primary">Go to Location</button>
+            </a>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-5"></div>
+      <!-- <div class="col-5"></div> -->
     </div>
     <div class="form">
       <div>
@@ -115,50 +120,50 @@
   </div>
 </template>
 <script setup>
-import axios from "axios"
-import {ref,onMounted} from "vue"
-import { useRoute,useRouter } from "vue-router";
+import axios from "axios";
+import MyNavbar from "./PrinterNavbar.vue";
+import { ref, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const router = useRouter();
-const id = ref(route.params.id)
-const name = ref("")
-const email = ref("")
-const phone = ref("")
-const tickets = ref("")
-const event =   ref([])
-const avaltick = ref(0)
+const id = ref(route.params.id);
+const name = ref("");
+const email = ref("");
+const phone = ref("");
+const tickets = ref("");
+const event = ref([]);
+const avaltick = ref(0);
 onMounted(() => {
-    getevent();
-})
+  getevent();
+});
 const getevent = async () => {
   try {
     const res = await axios.get(`http://localhost:5001/event/${id.value}`);
     console.log(res.data);
-    avaltick.value = res.data.noOfAvailableSlots
+    avaltick.value = res.data.noOfAvailableSlots;
     event.value = res.data;
   } catch (error) {
     console.log(error);
   }
 };
-const book = async ()=>{
-    try {
-        let res = await axios.post("http://localhost:5001/bookticket", {
-            name: name.value,
-            email: email.value,
-            phone: phone.value,
-            noofticket: tickets.value,
-            eventID: id.value,
-            avaltick: avaltick.value,
-            id:id.value
-        })
-router.push({name:"printerhome"})
-        console.log(res.data)
-    } catch (error) {
-        console.log(error)
-    }
-}
+const book = async () => {
+  try {
+    let res = await axios.post("http://localhost:5001/bookticket", {
+      name: name.value,
+      email: email.value,
+      phone: phone.value,
+      noofticket: tickets.value,
+      eventID: id.value,
+      avaltick: avaltick.value,
+      id: id.value,
+    });
+    router.push({ name: "printerhome" });
+    console.log(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>
-
 
 <style scoped>
 .maindiv {

@@ -1,83 +1,43 @@
 <template>
-  <MyNavbar />
-  <div>
-    <h1
-      data-bs-toggle="offcanvas"
-      data-bs-target="#offcanvasExample"
-      aria-controls="offcanvasExample"
-    >
-click
-    </h1>
+  <div class="d-flex justify-content-center">
+      <h1>your cordinates are  :</h1>
+      <h1>{{cordinates.lat}} LAtitude and {{cordinates.lng}} Longitude</h1>
+      <GmapMap
+        :center="{lat: cordinates.lat, lng: cordinates.lng}"
+        :zoom="10"
+        map-type-id="terrain"
+        style="width: 500px; height: 300px"
+      >
+      </GmapMap>
 
-    <div
-      class="offcanvas offcanvas-start"
-      tabindex="-1"
-      id="offcanvasExample"
-      aria-labelledby="offcanvasExampleLabel"
-      style="width: 35ch"
-    >
 
-    <div class="d-flex flex-nowrap">
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 100%; height: 100vh">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-      <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-      <span class="fs-4">Sidebar</span>
-    </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-          Home
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-          Dashboard
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-          Orders
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-          Products
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-          Customers
-        </a>
-      </li>
-    </ul>
-    <hr>
-    <div class="dropdown">
-      <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong>mdo</strong>
-      </a>
-      <ul class="dropdown-menu text-small shadow">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
-    </div>
   </div>
 </template>
 
 <script setup>
-import MyNavbar from "./admin/MyNavbar.vue";
+import { ref,onMounted } from 'vue';
+// import { VueGeolocation } from 'vue-browser-geolocation';
+const cordinates = ref ({
+    lat: 0,
+    lng: 0
+})
+
+onMounted(() => {
+  navigator.geolocation.getCurrentPosition((position) => {
+   try {
+    console.log(position.coords.latitude);
+    console.log(position.coords.longitude);
+
+    cordinates.value.lat = position.coords.latitude;
+    cordinates.value.lng = position.coords.longitude;
+   } catch (error) {
+    console
+   }
+  });
+});
+
 </script>
 
-<style scoped></style>
+<style  scoped>
+
+</style>
