@@ -43,6 +43,10 @@ const event_data = new mongoose.Schema({
     type: String,
     required: true,
   },
+  startfromticket:{
+    type: String,
+    required: true,
+  },
   toDate:{
     type: String,
     required: true,
@@ -55,11 +59,12 @@ const event_data = new mongoose.Schema({
     type: String,
     required: true,
   },
-  availablefromDate:{
+ 
+  location: {
     type: String,
     required: true,
   },
-  location: {
+  locationLink: {
     type: String,
     required: true,
   },
@@ -83,6 +88,10 @@ const event_data = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  remark:{
+    type: String,
+    
+  }
 });
 
 

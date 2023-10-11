@@ -1,7 +1,24 @@
 <template>
   <div>
     <MyNavbar />
-   
+
+    <div class="dropdown">
+      <button
+        class="btn btn-secondary dropdown-toggle btn-sm rounded-3"
+        type="button"
+        id="dropdownMenuButton1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        filter
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" @click="getall()">ALL</a></li>
+        <li><a class="dropdown-item" @click="getlive()">LIVE</a></li>
+        <li><a class="dropdown-item" @click="comingsoon">UPCOMING</a></li>
+      </ul>
+    </div>
+
     <div class="carrd">
       <div
         class="container"
@@ -9,9 +26,13 @@
         v-for="event in events"
         :key="event._id"
       >
-        <div class="card" style="width: 18rem">
+        <div class="card position-relative" style="width: 18rem">
           <img :src="event.image" class="card-img-top" alt="Loding Image" />
           <div class="card-body">
+            <img v-if="fill(event.startfromticket) === 'live'" src="../../assets/instagram-live.png" class="set-image">
+            <img v-if="fill(event.startfromticket) === 'upcoming'" src="../../assets/upcoming.png" class="set-image-up">
+
+            <!-- <p v-if="fill(event.startfromticket) === 'upcoming'">Upcoming</p> -->
             <h5 class="card-title">{{ event.title }}</h5>
             <p class="card-text">{{ event.description }}</p>
           </div>
@@ -28,7 +49,9 @@
           </ul>
           <div class="card-body">
             <a @click="editEvent(event)" class="card-link">Edit Event</a>
-            <a href="#" class="card-link">Book Ticket</a>
+            <a href="#" class="card-link" @click="fill(event.startfromticket)"
+              >Book Ticket</a
+            >
           </div>
         </div>
       </div>
@@ -38,7 +61,7 @@
 
 <script setup>
 import MyNavbar from "./MyNavbar.vue";
-import { onMounted, ref } from "vue";
+import {  onMounted, ref } from "vue";
 import axios from "axios";
 import router from "@/router";
 // import { useRouter } from "vue-router";
@@ -46,31 +69,81 @@ import router from "@/router";
 // let currentDate = new Date();
 // let eventDate = new Date()
 const events = ref([]);
+const mainevent = ref([]);
 onMounted(() => {
   getEvents();
 });
+// onBeforeMount(() => {
+//   compare();
+// });
 
-const compareDates = (current, prev) => {
-  if (parseInt(current.getFullYear) === parseInt(prev.getFullYear)) {
-    if (parseInt(current.getMonth) === parseInt(prev.getMonth)) {
-      if (parseInt(current.getDate) === parseInt(prev.getDate)) {
-        return "live";
-      } else if (parseInt(current.getDate) > parseInt(prev.getDate)) {
-        return "past";
-      } else {
-        return "upcoming";
-      }
-    } else if (parseInt(current.getMonth) > parseInt(prev.getMonth)) {
-      return "past";
-    } else {
-      return "upcoming";
-    }
-  } else if (parseInt(current.getFullYear) > parseInt(prev.getFullYear)) {
-    return "past";
-  } else {
-    return "upcoming";
-  }
+const getall = () => {
+  events.value = mainevent.value.filter((event) =>
+    event.remark.toLowerCase().includes("")
+  );
 };
+const getlive = () => {
+  events.value = mainevent.value.filter((event) =>
+    event.remark.toLowerCase().includes("live")
+  );
+};
+
+const comingsoon = () => {
+  events.value = mainevent.value.filter((event) =>
+    event.remark.toLowerCase().includes("upcoming")
+  );
+};
+// const now = computed(() => Date.now())
+const fill = (event) => {
+  const now = new Date();
+  const eventDate = new Date(event);
+  if (now < eventDate) {
+    return "upcoming";
+  } else {
+    return "live";
+  }
+  // router.push({ name: "bookticket", params: { id: event } });
+};
+
+// const compare = () => {
+//   console.log("im called")
+//   axios.get("http://localhost:5001/compare");
+
+// };
+
+// const compareDates = (current, start) => {
+//   if(current >= start){
+//     return 'live'
+//   }
+//   else{
+//     return 'upcoming'
+//   }
+// if(parseInt(current.getFullYear) >= parseInt(start.getFullYear)) {
+
+// }
+// else{
+//   return 'live'
+// }
+// if (parseInt(current.getFullYear) === parseInt(start.getFullYear)) {
+//   if (parseInt(current.getMonth) === parseInt(start.getMonth)) {
+//     if (parseInt(current.getDate) === parseInt(start.getDate)) {
+//       return "live";
+//     } else if (parseInt(current.getDate) > parseInt(start.getDate)) {
+//       return "past";
+//     } else {
+//       return "upcoming";
+//     }
+//   } else if (parseInt(current.getMonth) > parseInt(start.getMonth)) {
+//     return "past";
+//   } else {
+//     return "upcoming";
+//   }
+// } else if (parseInt(current.getFullYear) > parseInt(start.getFullYear)) {
+//   return "past";
+// } else {
+//   return "upcoming";
+// }
+// };
 
 const getEvents = async () => {
   try {
@@ -78,15 +151,22 @@ const getEvents = async () => {
     console.log(res.data);
     for (let event of res.data) {
       console.log(event);
-      const currentDate = new Date();
-      const eventDate = new Date(event.fromDate);
 
-      compareDates(currentDate, eventDate);
-      // if(currentDate == eventDate){
+      const remark = fill(event.startfromticket);
+      event.remark = remark;
+      mainevent.value.push(event);
+      events.value.push(event)
+      // const currentDate = new Date();
+      // const eventDate = new Date(event.startfromticket);
+
+      // event.remark = compareDates(currentDate, eventDate);
+      // console.log(event);
+      // // if(currentDate == eventDate){
 
       // }
     }
-    events.value = res.data;
+    // mainevent.value = res.data;
+    // events.value = res.data;
   } catch (error) {
     console.log(error);
   }
@@ -126,5 +206,22 @@ const editEvent = async (event) => {
 
 .card:hover {
   box-shadow: 0 0 10px rgba(10, 10, 0, 0.5); /* Add a shadow on hover */
+}
+.dropdown {
+  margin-top: 50px;
+  margin-left: 1200px;
+}
+
+.set-image {
+  position: absolute;
+  top: 0;
+  width: 20%;
+}
+
+.set-image-up {
+  position: absolute;
+  top: 0.25rem;
+  left: 2px;
+  width: 35%;
 }
 </style>

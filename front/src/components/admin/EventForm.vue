@@ -114,6 +114,19 @@
             </div>
           </div>
           <div class="row mb-3">
+            <label for="location" class="col-sm-2 col-form-label"
+              >Location-link</label
+            >
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="location"
+                v-model="locationLink"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
             <label for="image" class="col-sm-2 col-form-label">Image</label>
             <div class="col-sm-10">
               <input
@@ -203,6 +216,7 @@ export default {
       endtime: "",
       starttime: "",
       location: "",
+      locationLink: "",
       image: "",
       backgroundImage: "",
       price: "",
@@ -222,6 +236,7 @@ export default {
         this.endtime,
         this.starttime,
         this.location,
+        this.locationLink,
         this.image,
         this.backgroundImage,
         this.price,
@@ -239,6 +254,7 @@ export default {
           endtime: this.endtime,
           starttime: this.starttime,
           location: this.location,
+          locationLink: this.locationLink,
           image: this.image,
           backgroundImage: this.backgroundImage,
           price: this.price,
