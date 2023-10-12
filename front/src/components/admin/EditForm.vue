@@ -74,6 +74,17 @@
             </div>
           </div>
           <div class="row mb-3">
+            <label for="date" class="col-sm-2 col-form-label">Tickets start from</label>
+            <div class="col-sm-10">
+              <input
+                type="date"
+                class="form-control"
+                id="date"
+                v-model="startfromticket"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
             <label for="date" class="col-sm-2 col-form-label">Tickets Available Till</label>
             <div class="col-sm-10">
               <input
@@ -95,6 +106,19 @@
                 class="form-control"
                 id="location"
                 v-model="location"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="location" class="col-sm-2 col-form-label"
+              >Location-link</label
+            >
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="location"
+                v-model="locationLink"
               />
             </div>
           </div>
@@ -183,11 +207,13 @@ const router = useRouter()
 const title = ref("");
 const description = ref("");
 const fromDate = ref("");
+const startfromticket = ref("");
 const toDate = ref("");
 const tillDate = ref("");
 const starttime = ref("");
 const endtime = ref("");
 const location = ref("");
+const locationLink = ref("");
 const image = ref("");
 const backgroundImage = ref("");
 const price = ref("");
@@ -212,10 +238,12 @@ const callkr = async () => {
   description.value = datafrombackend.value.description;
   fromDate.value = datafrombackend.value.date;
   toDate.value = datafrombackend.value.tillDate;
+  startfromticket.value = datafrombackend.value.startfromticket;
   tillDate.value = datafrombackend.value.tillDate;
   starttime.value = datafrombackend.value.starttime;
   endtime.value = datafrombackend.value.endtime;
   location.value = datafrombackend.value.location;
+  locationLink.value = datafrombackend.value.locationLink;
   image.value = datafrombackend.value.image;
   backgroundImage.value = datafrombackend.value.backgroundImage;
   price.value = datafrombackend.value.price;
@@ -235,6 +263,8 @@ const submit = async () => {
       endtime: endtime.value,
       starttime: starttime.value,
       location: location.value,
+      locationLink: locationLink.value,
+      startfromticket  : startfromticket.value,
       image: image.value,
       backgroundImage: backgroundImage.value,
       price: price.value,

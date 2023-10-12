@@ -1,12 +1,24 @@
 const express = require("express");
 const app = express();
+
 const cors = require("cors");
 const path = require("path");
 const PORT = 5001;
 const { collection } = require("./mongodb");
 const { eventCollection } = require("./mongodb");
 const { booking } = require("./mongodb");
+// const { default: Stripe } = require("stripe");
 require("./mongodb.js");
+
+require("dotenv").config();
+app.use(express.json());
+// const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
+
+// const storeItem = new Map([
+//   [1, { priceInCents: 10000, name: "Premium" }][
+//     (2, { priceInCents: 20000, name: "Gold" })
+//   ],
+// ]);
 
 app.use(cors());
 app.use(express.json());
@@ -23,33 +35,32 @@ app.post("/signup", (req, res) => {
 
 app.post("/bookticket", async (req, res) => {
   try {
-
     const aval = await eventCollection.findOne({ _id: req.body.eventID });
     console.log(aval.noOfAvailableSlots);
-    
-    const { name, email, phone, noofticket, event,avaltick,eventID ,id} = req.body;
-    const final = aval.noOfAvailableSlots-noofticket 
-    console.log("renaiing",final);
+
+    const { name, email, phone, noofticket, event, avaltick, eventID, id } =
+      req.body;
+    const final = aval.noOfAvailableSlots - noofticket;
+    console.log("renaiing", final);
     const bookingData = new booking({
       name,
       email,
       phone,
       noofticket,
       event,
-      eventID
+      eventID,
     });
-    const ans =await bookingData.save();
+    const ans = await bookingData.save();
     // res.status(200).send(bookingData);
     console.log(ans);
-   
-    if (ans && ans.eventID === eventID){ 
-      const filter = { _id: id }; // Define your filter criteria
-      const update = { noOfAvailableSlots:final}; // Define the update operation
 
+    if (ans && ans.eventID === eventID) {
+      const filter = { _id: id }; // Define your filter criteria
+      const update = { noOfAvailableSlots: final }; // Define the update operation
+console.log("hiii")
       const result = await eventCollection.findOneAndUpdate(filter, update);
       res.status(200).send(result);
-    }
-    else{
+    } else {
       res.status(203).send("no tickets available");
     }
   } catch (error) {
@@ -66,8 +77,9 @@ app.post("/addEvent", async (req, res) => {
     toDate,
     endtime,
     tillDate,
-   
+    startfromticket,
     location,
+    locationLink,
     image,
     backgroundImage,
     price,
@@ -81,11 +93,12 @@ app.post("/addEvent", async (req, res) => {
     starttime,
     toDate,
     endtime,
-    
+
     tillDate,
 
-    
+    startfromticket,
     location,
+    locationLink,
     image,
     backgroundImage,
     price,
@@ -94,6 +107,25 @@ app.post("/addEvent", async (req, res) => {
   });
   await eventData.save();
   res.send(eventData);
+});
+
+app.get("/compare", async (req, res) => {
+  const currentDate = new Date();
+
+  const result = await eventCollection.find();
+  for (let i = 0; i < result.length; i++) {
+    if (currentDate < new Date(result[i].startfromticket)) {
+      const filter = { _id: result[i]._id };
+      const update = { remark: "upcoming" };
+      let doc = await eventCollection.findOneAndUpdate(filter, update);
+    } else {
+      const filter = { _id: result[i]._id };
+      const update = { remark: "live" };
+      let doc = await eventCollection.findOneAndUpdate(filter, update);
+    }
+
+    console.log(result);
+  }
 });
 
 //login
@@ -144,8 +176,9 @@ app.put("/editEvent", async (req, res) => {
         toDate: req.body.toDate,
         endtime: req.body.endtime,
         tillDate: req.body.tillDate,
-        
+        startfromticket: req.body.startfromticket,
         location: req.body.location,
+        locationLink: req.body.locationLink,
         image: req.body.image,
         backgroundImage: req.body.backgroundImage,
         price: req.body.price,

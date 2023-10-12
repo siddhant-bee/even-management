@@ -63,6 +63,28 @@
             </div>
           </div>
           <div class="row mb-3">
+            <label for="time" class="col-sm-2 col-form-label">Ending Time</label>
+            <div class="col-sm-10">
+              <input
+                type="time"
+                class="form-control"
+                id="time"
+                v-model="endtime"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="date" class="col-sm-2 col-form-label">ticket available Date</label>
+            <div class="col-sm-10">
+              <input
+                type="date"
+                class="form-control"
+                id="date"
+                v-model="availablefromDate"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
             <label for="date" class="col-sm-2 col-form-label"
               >Tickets Available Till</label
             >
@@ -75,17 +97,8 @@
               />
             </div>
           </div>
-          <div class="row mb-3">
-            <label for="time" class="col-sm-2 col-form-label">Ending Time</label>
-            <div class="col-sm-10">
-              <input
-                type="time"
-                class="form-control"
-                id="time"
-                v-model="endtime"
-              />
-            </div>
-          </div>
+      
+          
 
           <div class="row mb-3">
             <label for="location" class="col-sm-2 col-form-label"
@@ -97,6 +110,19 @@
                 class="form-control"
                 id="location"
                 v-model="location"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="location" class="col-sm-2 col-form-label"
+              >Location-link</label
+            >
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="location"
+                v-model="locationLink"
               />
             </div>
           </div>
@@ -186,9 +212,11 @@ export default {
       fromDate: "",
       toDate: "",
       tillDate: "",
+      availablefromDate: "",
       endtime: "",
       starttime: "",
       location: "",
+      locationLink: "",
       image: "",
       backgroundImage: "",
       price: "",
@@ -204,9 +232,11 @@ export default {
         this.fromDate,
         this.toDate,
         this.tillDate,
+        this.availablefromDate,
         this.endtime,
         this.starttime,
         this.location,
+        this.locationLink,
         this.image,
         this.backgroundImage,
         this.price,
@@ -220,9 +250,11 @@ export default {
           fromDate: this.fromDate,
           toDate: this.toDate,
           tillDate: this.tillDate,
+          availablefromDate: this.availablefromDate,
           endtime: this.endtime,
           starttime: this.starttime,
           location: this.location,
+          locationLink: this.locationLink,
           image: this.image,
           backgroundImage: this.backgroundImage,
           price: this.price,
