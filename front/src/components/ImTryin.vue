@@ -1,100 +1,40 @@
 <template>
-  <div class="background-gif">
-    <div class="payment-form">
-      <h1>Checkout</h1>
-    
-      <form @submit.prevent="submitForm">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" v-model="name" required>
+  <div class="container d-flex justify-content-center align-items-center">
+    <div class="ticket d-flex flex-column justify-content-around">
+      <div class="col-6 d-flex ">
+        <div class="col-3 "></div>
+        <div>
+          <h1 class="title">EVENT NAME jhbsdhfbdshfbhfbsdjf</h1>
         </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" v-model="email" required>
-        </div>
-        <div class="form-group">
-          <label for="cardNumber">Card Number</label>
-          <input type="text" id="cardNumber" v-model="cardNumber" required>
-        </div>
-        <div class="form-group">
-          <label for="expiryDate">Expiry Date</label>
-          <input type="text" id="expiryDate" v-model="expiryDate" required>
-        </div>
-        <div class="form-group">
-          <label for="cvv">CVV</label>
-          <input type="text" id="cvv" v-model="cvv" required>
-        </div>
-        <button type="submit">Pay Now</button>
-      </form>
+      </div>
+      <div class="col-2">
+      </div>
+      <div class="col-4 d-flex">
+        <div class="col-4"></div>
+        <div class="col-10 "><h4 class="title">{{}}Location</h4></div>
+        <div class="col-6 "><h4 class="title">Location</h4></div>
+        <div class="col-4 ps-5 ms-1" ><h4 class="title">Location</h4></div>
+      </div>
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue';
-
-
-
-const name = ref('');
-const email = ref('');
-const cardNumber = ref('');
-const expiryDate = ref('');
-const cvv = ref('');
-
-
-
+<script>
+export default {};
 </script>
-
 <style scoped>
-/* .background-gif {
-  position: relative;
-  width: 100%;
+.ticket {
+  height: 50vh;
+  width: 70vw;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("../assets/Data.jpg");
+}
+.container {
   height: 100vh;
-  background-image: url("@/assets/card.gif"); /* Path to your GIF file */
-  /* background-size: cover; */
-/* } */ 
-
-.payment-form {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 400px;
-  
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.8);
 }
-
-.payment-form h1 {
-  text-align: center;
-
-}
-
-.form-group {
-  margin-bottom: 5px;
-}
-
-label {
-  display: block;
+.title{
+  color: rgb(255, 255, 255);
+  font-family: Roboto;
   font-weight: bold;
-}
-
-input[type="text"],
-input[type="email"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-button {
-  display: block;
-  width: 100%;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 }
 </style>

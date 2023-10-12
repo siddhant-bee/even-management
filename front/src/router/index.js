@@ -76,7 +76,7 @@ const routes = [
     component: bookticket
   },
   {
-    path: '/thankyou',
+    path: '/thankyou/:id',
     name: 'thankyou',
     component: thankyou
   }

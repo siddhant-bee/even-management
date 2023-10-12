@@ -11,7 +11,12 @@
    <i class="fa-solid fa-backward p-5 fa-xl" @click="open=false"> Back</i>
   <!-- <i @click="copyToClipboard" class="fa-solid fa-copy fa-xl" style="margin-left: 0.2rem;"></i> -->
  
+
+
+
   <div class="payment-form">
+    <h3>total amount is :-{{ final }}</h3>
+    <h2 style="margin-left: 100px;">{{ event.price }} x {{ tickets }}</h2>
       <h1>Checkout</h1>
       <form @submit.prevent="submitForm">
         <div class="form-group">
@@ -28,7 +33,8 @@
         </div>
         <div class="form-group">
           <label for="expiryDate">Expiry Date</label>
-          <input type="text" id="expiryDate" v-model="expiryDate" required>
+          <input   type="date"
+                class="form-control" v-model="expiryDate" required>
         </div>
         <div class="form-group">
           <label for="cvv">CVV</label>
@@ -103,6 +109,7 @@
                   <label for="name" class="col-sm-2 col-form-label"
                     >Full Name</label
                   >
+                 
                   <!-- {{ open }} -->
                   <div class="col-sm-10">
                     <input
@@ -184,9 +191,18 @@ const name = ref("");
 const email = ref("");
 const phone = ref("");
 const tickets = ref("");
+const finalprice = ref("");
 const event = ref([]);
 const avaltick = ref(0);
 let open=ref(false)
+let final = ref("");
+console.log(finalprice.value)
+
+const myData={
+
+  id:id.value
+}
+
 
 // modal
 
@@ -205,6 +221,9 @@ onMounted(() => {
   getevent();
 });
 watch(tickets, () => {
+
+  final= finalprice.value*tickets.value
+
   if(tickets.value > avaltick.value){
     //msg nhi mikega 
   }
@@ -226,6 +245,9 @@ const getevent = async () => {
     const res = await axios.get(`http://localhost:5001/event/${id.value}`);
     console.log(res.data);
     avaltick.value = res.data.noOfAvailableSlots;
+    finalprice.value = res.data.price;
+   
+    console.log(final);
     event.value = res.data;
   } catch (error) {
     console.log(error);
@@ -242,7 +264,12 @@ const book = async () => {
       eventID: id.value,
       avaltick: avaltick.value,
       id: id.value,});
-router.push({ name: "thankyou", });
+
+
+router.push({ name: "thankyou",
+ query: myData })
+ 
+
     console.log(res.data);
   } catch (error) {
     console.log(error);
