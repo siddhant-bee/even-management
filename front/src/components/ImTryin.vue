@@ -1,43 +1,100 @@
 <template>
-  <div class="d-flex justify-content-center">
-      <h1>your cordinates are  :</h1>
-      <h1>{{cordinates.lat}} LAtitude and {{cordinates.lng}} Longitude</h1>
-      <GmapMap
-        :center="{lat: cordinates.lat, lng: cordinates.lng}"
-        :zoom="10"
-        map-type-id="terrain"
-        style="width: 500px; height: 300px"
-      >
-      </GmapMap>
-
-
+  <div class="background-gif">
+    <div class="payment-form">
+      <h1>Checkout</h1>
+    
+      <form @submit.prevent="submitForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" v-model="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" v-model="email" required>
+        </div>
+        <div class="form-group">
+          <label for="cardNumber">Card Number</label>
+          <input type="text" id="cardNumber" v-model="cardNumber" required>
+        </div>
+        <div class="form-group">
+          <label for="expiryDate">Expiry Date</label>
+          <input type="text" id="expiryDate" v-model="expiryDate" required>
+        </div>
+        <div class="form-group">
+          <label for="cvv">CVV</label>
+          <input type="text" id="cvv" v-model="cvv" required>
+        </div>
+        <button type="submit">Pay Now</button>
+      </form>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref,onMounted } from 'vue';
-// import { VueGeolocation } from 'vue-browser-geolocation';
-const cordinates = ref ({
-    lat: 0,
-    lng: 0
-})
+import { ref } from 'vue';
 
-onMounted(() => {
-  navigator.geolocation.getCurrentPosition((position) => {
-   try {
-    console.log(position.coords.latitude);
-    console.log(position.coords.longitude);
 
-    cordinates.value.lat = position.coords.latitude;
-    cordinates.value.lng = position.coords.longitude;
-   } catch (error) {
-    console
-   }
-  });
-});
+
+const name = ref('');
+const email = ref('');
+const cardNumber = ref('');
+const expiryDate = ref('');
+const cvv = ref('');
+
+
 
 </script>
 
-<style  scoped>
+<style scoped>
+/* .background-gif {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-image: url("@/assets/card.gif"); /* Path to your GIF file */
+  /* background-size: cover; */
+/* } */ 
 
+.payment-form {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 400px;
+  
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.payment-form h1 {
+  text-align: center;
+
+}
+
+.form-group {
+  margin-bottom: 5px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 </style>

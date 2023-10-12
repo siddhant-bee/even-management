@@ -14,6 +14,7 @@ import editevent from "../components/admin/EditForm.vue"
 import tryin from "../components/ImTryin.vue"
 import printerhome from "../components/printer/PrinterHome.vue"
 import bookticket from "../components/printer/BookTicket.vue"
+import thankyou from "../components/printer/ThankYou.vue"
 
 const routes = [
   {
@@ -73,6 +74,11 @@ const routes = [
     path: '/bookticket/:id',
     name: 'bookticket',
     component: bookticket
+  },
+  {
+    path: '/thankyou',
+    name: 'thankyou',
+    component: thankyou
   }
 ]
 
