@@ -57,7 +57,7 @@ app.post("/bookticket", async (req, res) => {
     if (ans && ans.eventID === eventID) {
       const filter = { _id: id }; // Define your filter criteria
       const update = { noOfAvailableSlots: final }; // Define the update operation
-
+console.log("hiii")
       const result = await eventCollection.findOneAndUpdate(filter, update);
       res.status(200).send(result);
     } else {
