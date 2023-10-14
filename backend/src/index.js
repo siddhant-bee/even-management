@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-
+const request = require("request");
 const cors = require("cors");
 const path = require("path");
 const PORT = 5001;
@@ -57,7 +57,7 @@ app.post("/bookticket", async (req, res) => {
     if (ans && ans.eventID === eventID) {
       const filter = { _id: id }; // Define your filter criteria
       const update = { noOfAvailableSlots: final }; // Define the update operation
-console.log("hiii")
+      console.log("hiii");
       const result = await eventCollection.findOneAndUpdate(filter, update);
       res.status(200).send(result);
     } else {
@@ -199,11 +199,48 @@ app.put("/editEvent", async (req, res) => {
   }
 });
 
+app.get("/cod/:id", async (req, res) => {
+  try {
+    
+    const result = await eventCollection.findOne({ _id: req.params.id });
+    // console.log(result);
+    console.log(result.location);
+    let cordinates ;
+    let url = "";
+    url =
+      "http://api.mapbox.com/geocoding/v5/mapbox.places/" +
+      result.location +
+      ".json?access_token=pk.eyJ1Ijoic2lkZGhhbnRqaGEiLCJhIjoiY2xsb3R6MXAxMDEyczNmcWtxc213aDl1OCJ9.BvWsXmNOeaT_nC4Qzi3Mvg";
+
+    request(
+      {
+        url: url,
+        JSON: true,
+      },
+      (error, response) => {
+         cordinates = JSON.parse(response.body);
+         console.log("imlocation");
+        console.log(cordinates.features[0].center);
+        res.send(cordinates.features[0].center);
+      }
+    );
+
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+
+
+
 app.get("/event/:id", async (req, res) => {
   try {
     console.log(req.params.id);
     const result = await eventCollection.findOne({ _id: req.params.id });
     console.log(result);
+    console.log(result.location);
+
     res.send(result);
   } catch (error) {
     console.log(error);
