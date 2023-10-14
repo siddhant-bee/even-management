@@ -1,0 +1,89 @@
+<template>
+  <div class="tickets">
+    <div class="left">
+      <!-- <div class="bookingInfo"> -->
+      <div><p>6521257089d833f0227dd53b</p></div>
+      <div><p>Booking Id</p></div>
+      <!-- </div> -->
+    </div>
+    <div class="center">
+      <!-- <div class="cutout"></div>
+      <div class="cutout1"></div> -->
+    </div>
+    <div class="right">
+      <div class="cutout"></div>
+      <div class="cutout1"></div>
+    </div>
+  </div>
+</template>
+
+<script setup></script>
+
+<style scoped>
+.tickets {
+  display: flex;
+  justify-content: center;
+  width: 920px;
+  height: 300px;
+  margin-top: 60px;
+}
+.left {
+  background-color: black;
+  width: 7%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.7rem;
+}
+
+.left div p {
+  rotate: 90deg;
+}
+.center {
+  background-color: green;
+  width: 68%;
+  position: relative;
+  background-image: url("../assets/live.jpg");
+  background-size: cover;
+  /* background-repeat: no-repeat; */
+  background-position: center;
+}
+
+.right {
+  background-color: rgb(65, 63, 63);
+  width: 25%;
+  position: relative;
+}
+
+.cutout,
+.cutout1 {
+  height: 40px;
+  width: 40px;
+  background-color: white;
+  position: absolute;
+  transform: rotate(45deg);
+  left: -20px;
+}
+
+.cutout {
+  top: -20px;
+}
+
+.cutout1 {
+  bottom: -20px;
+}
+
+.right .cutout {
+  left: -20px;
+}
+
+/* .bookingInfo{
+  display: flex;
+  rotate: 90deg;
+  color: white;
+  position: absolute;
+  bottom: 0 
+}
+  */
+</style>

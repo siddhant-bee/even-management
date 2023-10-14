@@ -21,20 +21,35 @@
 
     <div class="carrd">
       <div
-        class="container"
-        style="width: 33%"
+        
+        
         v-for="event in events"
         :key="event._id"
       >
-        <div class="card position-relative" style="width: 18rem" v-show="event.noOfAvailableSlots > 0 && new Date(event.tillDate) > new Date()">
+        <div
+          class="card position-relative mx-4"
+          style="width: 18rem"
+          
+          v-show="
+            event.noOfAvailableSlots > 0 &&
+            new Date(event.tillDate) > new Date()
+          "
+        >
           <img :src="event.image" class="card-img-top" alt="Loding Image" />
           <div class="card-body">
-            <img v-if="fill(event.startfromticket) === 'live'" src="../../assets/instagram-live.png" class="set-image">
-            <img v-if="fill(event.startfromticket) === 'upcoming'" src="../../assets/upcoming.png" class="set-image-up">
+            <img
+              v-if="fill(event.startfromticket) === 'live'"
+              src="../../assets/instagram-live.png"
+              class="set-image"
+            />
+            <img
+              v-if="fill(event.startfromticket) === 'upcoming'"
+              src="../../assets/upcoming.png"
+              class="set-image-up"
+            />
 
-           
             <h5 class="card-title">{{ event.title }}</h5>
-            
+
             <p class="card-text">{{ event.description }}</p>
           </div>
           <ul class="list-group list-group-flush">
@@ -43,7 +58,11 @@
               Date : {{ event.fromDate }} Time : {{ event.starttime }}
             </li>
             <li class="list-group-item">
-              Total Seat: {{ event.totalNoOfSlots }} Available Seat :{{
+              Total Seat: {{ event.totalNoOfSlots }}
+              
+            </li>
+            <li class="list-group-item">
+               Available Seat :{{
                 event.noOfAvailableSlots
               }}
             </li>
@@ -53,7 +72,7 @@
               href="#"
               class="btn btn-outline-primary"
               @click="bookticket(event)"
-              style="margin-left: 60px;"
+              style="margin-left: 60px"
               v-if="fill(event.startfromticket) === 'live'"
               >Book Ticket</a
             >
@@ -61,13 +80,11 @@
             <a
               href="#"
               class="btn btn-outline-primary"
-             @click="toaster()"
-              style="margin-left: 60px;"
+              @click="toaster()"
+              style="margin-left: 60px"
               v-if="fill(event.startfromticket) === 'upcoming'"
               >cooming soon</a
             >
-
-
           </div>
         </div>
       </div>
@@ -76,11 +93,11 @@
 </template>
 
 <script setup>
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 import MyNavbar from "./PrinterNavbar.vue";
-import {  onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import axios from "axios";
 import router from "@/router";
 
@@ -92,9 +109,9 @@ onMounted(() => {
 
 const toaster = () => {
   toast("cooming sooon !", {
-        autoClose: 1500,
-      }); 
-}
+    autoClose: 1500,
+  });
+};
 
 const getall = () => {
   events.value = mainevent.value.filter((event) =>
@@ -121,9 +138,7 @@ const fill = (event) => {
   } else {
     return "live";
   }
-
 };
-
 
 const getEvents = async () => {
   try {
@@ -135,10 +150,8 @@ const getEvents = async () => {
       const remark = fill(event.startfromticket);
       event.remark = remark;
       mainevent.value.push(event);
-      events.value.push(event)
-    
+      events.value.push(event);
     }
-   
   } catch (error) {
     console.log(error);
   }
@@ -158,7 +171,7 @@ const bookticket = async (event) => {
   padding-left: 50px;
   padding-right: 50px;
   cursor: pointer;
-  margin-left: 200px;
+
 
   margin-bottom: 50px;
   /* margin-top: 50px; */
