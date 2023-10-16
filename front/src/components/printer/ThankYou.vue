@@ -91,7 +91,7 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 const id = ref(route.query.id);
 const ticket = ref(route.query.tickets);
-let open = ref(true);
+let open = ref(false);
 let str = ref([]);
 
 // console.log("str", str);
