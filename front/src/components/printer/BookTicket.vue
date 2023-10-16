@@ -192,7 +192,7 @@ const id = ref(route.params.id);
 const name = ref("");
 const email = ref("");
 const phone = ref("");
-const tickets = ref(0);
+const tickets = ref('');
 const finalprice = ref("");
 const event = ref([]);
 const avaltick = ref(0);
@@ -225,6 +225,11 @@ watch(tickets, () => {
 
   if (tickets.value > avaltick.value) {
     //msg nhi mikega
+    tickets.value = avaltick.value;
+    toast(`Tickets not available only ${avaltick.value} left ` , {
+        autoClose: 1500,
+      });
+
   } else if (tickets.value <= avaltick.value) {
     //msg mikega
 
@@ -247,6 +252,7 @@ const getcod = async () => {
     long.value = res.data[0];
 
     url.value = "https://maps.google.com/?q=" + late.value + "," + long.value;
+    // url.value = "https://maps.google.com/maps/place/The Leela Gandhinagar,gandhinagar gujarat india"
     console.log("1", url.value);
   } catch (error) {
     console.log(error);
