@@ -185,14 +185,14 @@ import "vue3-toastify/dist/index.css";
 import MyNavbar from "./PrinterNavbar.vue";
 import { ref, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-// import router from "@/router";
+
 const route = useRoute();
 const router = useRouter();
 const id = ref(route.params.id);
 const name = ref("");
 const email = ref("");
 const phone = ref("");
-const tickets = ref('');
+const tickets = ref("");
 const finalprice = ref("");
 const event = ref([]);
 const avaltick = ref(0);
@@ -214,8 +214,8 @@ const cvv = ref("");
 const opentop = () => {
   open.value = true;
   window.scrollTo(0, 0);
-};
-
+}; 
+    
 onMounted(() => {
   getevent();
   getcod();
@@ -226,10 +226,9 @@ watch(tickets, () => {
   if (tickets.value > avaltick.value) {
     //msg nhi mikega
     tickets.value = avaltick.value;
-    toast(`Tickets not available only ${avaltick.value} left ` , {
-        autoClose: 1500,
-      });
-
+    toast(`Tickets not available only ${avaltick.value} left `, {
+      autoClose: 1500,
+    });
   } else if (tickets.value <= avaltick.value) {
     //msg mikega
 
@@ -261,6 +260,7 @@ const getcod = async () => {
 
 const getevent = async () => {
   try {
+    console.log('hello')
     const res = await axios.get(`http://localhost:5001/event/${id.value}`);
     console.log(res.data);
     avaltick.value = res.data.noOfAvailableSlots;
@@ -276,23 +276,42 @@ const getevent = async () => {
 
 const book = async () => {
   try {
-    let res = await axios.post("http://localhost:5001/bookticket", {
-      name: name.value,
-      email: email.value,
-      phone: phone.value,
-      noofticket: tickets.value,
-      eventID: id.value,
-      avaltick: avaltick.value,
-      id: id.value,
-    });
-    const myData = {
-      id: id.value,
-      tickets: tickets.value,
-    };
-    console.log(myData);
-    router.push({ name: "thankyou", query: myData });
+//     const now = new Date();
+//     const hours = now.getHours();
+//     const minutes = now.getMinutes();
+//     const seconds = now.getSeconds();
+//     const milliseconds = now.getMilliseconds();
+//     const timeString = `${hours}:${minutes}:${seconds}.${milliseconds}`;
+//     console.log(timeString);
 
-    console.log(res.data);
+// let check = await axios.post("http://localhost:5001/check", {
+//   time: timeString,
+// });
+// console.log(check.data);
+
+    let aticket = await axios.get(`http://localhost:5001/event/${id.value}`);
+    console.log(aticket.data.noOfAvailableSlots);
+    if (aticket.data.noOfAvailableSlots >= tickets.value) {
+      let res = await axios.post("http://localhost:5001/bookticket", {
+        name: name.value,
+        email: email.value,
+        phone: phone.value,
+        noofticket: tickets.value,
+        eventID: id.value,
+        avaltick: avaltick.value,
+        id: id.value,
+      });
+      const myData = {
+        id: id.value,
+        tickets: tickets.value,
+      };
+      console.log(myData);
+      router.push({ name: "thankyou", query: myData });
+
+      console.log(res.data);
+    } else {
+     router.push({ name: "fail" });
+    }
   } catch (error) {
     console.log(error);
   }

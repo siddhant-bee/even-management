@@ -16,6 +16,7 @@ import printerhome from "../components/printer/PrinterHome.vue"
 import bookticket from "../components/printer/BookTicket.vue"
 import thankyou from "../components/printer/ThankYou.vue"
 import qrcode from "../components/printer/MyQr.vue"
+import fail from "../components/printer/PrinterFail.vue"
 
 const routes = [
   {
@@ -85,6 +86,11 @@ const routes = [
     path: '/qrcode',
     name: 'qrcode',
     component: qrcode
+  },
+  {
+    path: '/fail',
+    name: 'fail',
+    component: fail
   }
 ]
 
