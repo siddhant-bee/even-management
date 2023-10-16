@@ -94,6 +94,12 @@ const event_data = new mongoose.Schema({
   }
 });
 
+const check = new mongoose.Schema({
+  timstamp: {
+    type: String,
+    required: true,
+  }
+})
 
 
 const booking_data = new mongoose.Schema({
@@ -125,6 +131,7 @@ const booking_data = new mongoose.Schema({
 })
 
 const booking = new mongoose.model("booking_data", booking_data);
+const checktimestamp = new mongoose.model("check", check);
 
 const eventCollection = new mongoose.model("event_data", event_data);
 
@@ -133,4 +140,5 @@ module.exports = {
   collection,
   eventCollection,
   booking,
+  checktimestamp
 };

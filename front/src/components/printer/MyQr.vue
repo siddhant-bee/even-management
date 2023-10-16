@@ -8,12 +8,17 @@
   import QRCode from 'qrcode-generator';
   
   export default {
+    props: {
+    location: String, // Declare the prop and specify its data type
+  },
     mounted() {
+
+      
       // Create a QRCode instance
       const qr = QRCode(0, 'M'); // (version, correction level)
   
       // Set the data you want to encode
-      const qrData = "https://www.carwale.com/mahindra-cars/thar/";
+      const qrData = "location:" + this.location;
   
       // Add the data to the QRCode instance
       qr.addData(qrData);

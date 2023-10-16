@@ -7,6 +7,7 @@ const PORT = 5001;
 const { collection } = require("./mongodb");
 const { eventCollection } = require("./mongodb");
 const { booking } = require("./mongodb");
+const {checktimestamp}=require("./mongodb");
 // const { default: Stripe } = require("stripe");
 require("./mongodb.js");
 
@@ -32,6 +33,26 @@ app.post("/signup", (req, res) => {
 
   // console.log(email);
 });
+
+app.post("/check",async(req,res)=>{
+  const {time} = req.body;
+  console.log(req.body);
+  const check = new checktimestamp({timstamp:time});
+  await check.save();
+
+  const alltime = await checktimestamp.find();
+for (let i = 0; i < alltime.length; i++) {
+if(alltime[i].timstamptime<time){
+  res.send("false");
+}
+else{
+  res.send("true");
+}
+}
+
+  // res.send(check);
+})
+
 
 app.post("/bookticket", async (req, res) => {
   try {

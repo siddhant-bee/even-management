@@ -157,6 +157,15 @@ const getEvents = async () => {
   }
 };
 const bookticket = async (event) => {
+  const now = new Date();
+  const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    const milliseconds = now.getMilliseconds();
+
+    // Format the time as a string (e.g., "14:30:45")
+    const timeString = `${hours}:${minutes}:${seconds}.${milliseconds}`;
+  console.log(timeString);
   console.log(event._id);
   router.push({ name: "bookticket", params: { id: event._id } });
   // router.push({ name: "payment", params: { id: event._id } });
