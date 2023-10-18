@@ -64,7 +64,7 @@
 
           <div class="ticketNo">{{ str.join(",") }}</div>
           <div class="qr" >
-            <qr location:event.location  />
+            <qr :location="event.location"  />
           </div>
         </div>
       </div>

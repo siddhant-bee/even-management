@@ -84,7 +84,7 @@
               </div>
               <div class="d-flex flex-row">
                 <h5><label for="location" class="title">Location : </label></h5>
-                <h5 class="title">- {{ event.location }}</h5>
+                <h5 class="title">- {{ event.locationlink }}</h5>
               </div>
               c
               <div class="d-flex flex-row">
@@ -97,7 +97,9 @@
             </div>
           </div>
         </div>
+
         <!-- <div class="col-5"></div> -->
+
       </div>
       <div class="form">
         <div>
@@ -178,7 +180,7 @@
   </div>
 </template>
 <script setup>
-// const request = require("request");
+
 import axios from "axios";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
@@ -206,7 +208,6 @@ const cordinates = ref([]);
 let url = ref("");
 
 const cardname = ref("");
-// const memail = ref('');
 const cardNumber = ref("");
 const expiryDate = ref("");
 const cvv = ref("");
@@ -214,8 +215,8 @@ const cvv = ref("");
 const opentop = () => {
   open.value = true;
   window.scrollTo(0, 0);
-}; 
-    
+};
+
 onMounted(() => {
   getevent();
   getcod();
@@ -250,8 +251,7 @@ const getcod = async () => {
     late.value = res.data[1];
     long.value = res.data[0];
 
-    url.value = "https://maps.google.com/?q=" + late.value + "," + long.value;
-    // url.value = "https://maps.google.com/maps/place/The Leela Gandhinagar,gandhinagar gujarat india"
+   
     console.log("1", url.value);
   } catch (error) {
     console.log(error);
@@ -260,14 +260,17 @@ const getcod = async () => {
 
 const getevent = async () => {
   try {
-    console.log('hello')
+    console.log("hello");
     const res = await axios.get(`http://localhost:5001/event/${id.value}`);
     console.log(res.data);
     avaltick.value = res.data.noOfAvailableSlots;
     finalprice.value = res.data.price;
     location.value = res.data.location;
     console.log(location.value);
-
+    late.value = location.value.split(",")[0];
+    long.value = location.value.split(",")[1];
+    url.value = "https://maps.google.com/?q=" + late.value + "," + long.value;
+    
     event.value = res.data;
   } catch (error) {
     console.log(error);
@@ -276,19 +279,7 @@ const getevent = async () => {
 
 const book = async () => {
   try {
-//     const now = new Date();
-//     const hours = now.getHours();
-//     const minutes = now.getMinutes();
-//     const seconds = now.getSeconds();
-//     const milliseconds = now.getMilliseconds();
-//     const timeString = `${hours}:${minutes}:${seconds}.${milliseconds}`;
-//     console.log(timeString);
-
-// let check = await axios.post("http://localhost:5001/check", {
-//   time: timeString,
-// });
-// console.log(check.data);
-
+   
     let aticket = await axios.get(`http://localhost:5001/event/${id.value}`);
     console.log(aticket.data.noOfAvailableSlots);
     if (aticket.data.noOfAvailableSlots >= tickets.value) {
@@ -309,7 +300,17 @@ const book = async () => {
       router.push({ name: "thankyou", query: myData });
 
       console.log(res.data);
-    } else {
+    }
+    // }else if(aticket.data.noOfAvailableSlots < tickets.value) {
+    //   open.value = false;
+    //   avaltick.value=aticket.data.noOfAvailableSlots
+    //   tickets.value=0
+    //   toast(`Tickets not available only ${aticket.data.noOfAvailableSlots} left `, {
+    //     autoClose: 1500,
+    //   })
+    // //  router.push({ name: "fail" });
+    // }
+     else {
      router.push({ name: "fail" });
     }
   } catch (error) {
@@ -342,7 +343,6 @@ img {
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 400px;
-
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.8);
 }

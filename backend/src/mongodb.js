@@ -43,7 +43,7 @@ const event_data = new mongoose.Schema({
     type: String,
     required: true,
   },
-  startfromticket:{
+  availablefromDate:{
     type: String,
     required: true,
   },
@@ -64,7 +64,7 @@ const event_data = new mongoose.Schema({
     type: String,
     required: true,
   },
-  locationLink: {
+  locationlink:{
     type: String,
     required: true,
   },
