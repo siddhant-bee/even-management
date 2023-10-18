@@ -40,7 +40,9 @@
             </div>
           </div>
           <div class="row mb-3">
-            <label for="time" class="col-sm-2 col-form-label"> Starting Time</label>
+            <label for="time" class="col-sm-2 col-form-label">
+              Starting Time</label
+            >
             <div class="col-sm-10">
               <input
                 type="time"
@@ -63,7 +65,9 @@
             </div>
           </div>
           <div class="row mb-3">
-            <label for="time" class="col-sm-2 col-form-label">Ending Time</label>
+            <label for="time" class="col-sm-2 col-form-label"
+              >Ending Time</label
+            >
             <div class="col-sm-10">
               <input
                 type="time"
@@ -74,7 +78,9 @@
             </div>
           </div>
           <div class="row mb-3">
-            <label for="date" class="col-sm-2 col-form-label">ticket available Date</label>
+            <label for="date" class="col-sm-2 col-form-label"
+              >ticket available Date</label
+            >
             <div class="col-sm-10">
               <input
                 type="date"
@@ -97,10 +103,8 @@
               />
             </div>
           </div>
-      
-          
 
-          <div class="row mb-3">
+          <div class="row mb-3" @click="dofocus" >
             <label for="location" class="col-sm-2 col-form-label"
               >Location</label
             >
@@ -109,23 +113,37 @@
                 type="text"
                 class="form-control"
                 id="location"
+                autocomplete="off"
+                
                 v-model="location"
               />
             </div>
           </div>
+
+          <div  v-show="open">
+            <div ref="map" class="map"></div>
+            <div>
+              <button type="button" @click="collect">Submit</button>
+              <!-- <p v-if="markerCoordinates">
+                Latitude: {{ markerCoordinates.lat }}, Longitude:
+                {{ markerCoordinates.lng }}
+              </p> -->
+            </div>
+          </div>
+
           <div class="row mb-3">
             <label for="location" class="col-sm-2 col-form-label"
-              >Location-link</label
+              >Location-Name</label
             >
             <div class="col-sm-10">
               <input
                 type="text"
                 class="form-control"
                 id="location"
-                v-model="locationLink"
+                v-model="locationlink"
               />
             </div>
-          </div>
+          </div> 
           <div class="row mb-3">
             <label for="image" class="col-sm-2 col-form-label">Image</label>
             <div class="col-sm-10">
@@ -201,6 +219,7 @@
 </template>
 
 <script>
+import mapboxgl from "mapbox-gl";
 import MyNavbar from "./MyNavbar.vue";
 // import MyNavbar from "./MyNavbar.vue";
 import axios from "axios";
@@ -216,16 +235,55 @@ export default {
       endtime: "",
       starttime: "",
       location: "",
-      locationLink: "",
+      locationlink:'',
       image: "",
       backgroundImage: "",
       price: "",
       totalNoOfSlots: "",
       noOfAvailableSlots: "",
+      lat: "",
+      lng: "",
+     open:false,
+      map: null,
+      marker: null,
+      markerCoordinates: null,
     };
   },
   methods: {
+    initMap() {
+      mapboxgl.accessToken =
+        "pk.eyJ1Ijoic2lkZGhhbnRqaGEiLCJhIjoiY2xsb3R6MXAxMDEyczNmcWtxc213aDl1OCJ9.BvWsXmNOeaT_nC4Qzi3Mvg";
+
+      this.map = new mapboxgl.Map({
+        container: this.$refs.map,
+        style: "mapbox://styles/mapbox/satellite-streets-v12",
+        center: [72, 23], // Initial center coordinates
+        zoom: 1, // Initial zoom level
+      });
+
+      this.marker = new mapboxgl.Marker({ draggable: true })
+        .setLngLat([72, 23]) // Initial marker coordinates
+        .addTo(this.map);
+
+      // Listen for the "dragend" event on the marker
+      this.marker.on("dragend", (e) => {
+        this.markerCoordinates = e.target.getLngLat();
+      });
+    },
+
+    collect() {
+      this.location =
+        this.markerCoordinates.lat + "," + this.markerCoordinates.lng;
+      console.log(typeof this.location);
+      this.open = false;
+    },
+
+    dofocus() {
+      this.open = true;
+      console.log(this.open);
+    },
     submit() {
+      console.log("Hello jiii")
       console.log(
         this.title,
         this.description,
@@ -236,7 +294,7 @@ export default {
         this.endtime,
         this.starttime,
         this.location,
-        this.locationLink,
+        this.locationlink,
         this.image,
         this.backgroundImage,
         this.price,
@@ -254,7 +312,7 @@ export default {
           endtime: this.endtime,
           starttime: this.starttime,
           location: this.location,
-          locationLink: this.locationLink,
+          locationlink: this.locationlink,
           image: this.image,
           backgroundImage: this.backgroundImage,
           price: this.price,
@@ -267,6 +325,9 @@ export default {
         });
     },
   },
+  mounted() {
+    this.initMap();
+  },
   components: { MyNavbar },
 };
 </script>
@@ -274,5 +335,9 @@ export default {
 <style scoped>
 .container {
   margin-top: 50px;
+}
+.map {
+  height: 300px;
+  width: 100%;
 }
 </style>

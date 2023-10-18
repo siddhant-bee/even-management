@@ -90,6 +90,7 @@ app.post("/bookticket", async (req, res) => {
 });
 
 app.post("/addEvent", async (req, res) => {
+  console.log(req.body)
   const {
     title,
     description,
@@ -98,9 +99,9 @@ app.post("/addEvent", async (req, res) => {
     toDate,
     endtime,
     tillDate,
-    startfromticket,
+    availablefromDate,
     location,
-    locationLink,
+    locationlink,
     image,
     backgroundImage,
     price,
@@ -117,9 +118,9 @@ app.post("/addEvent", async (req, res) => {
 
     tillDate,
 
-    startfromticket,
+    availablefromDate,
     location,
-    locationLink,
+    locationlink,
     image,
     backgroundImage,
     price,
@@ -199,7 +200,7 @@ app.put("/editEvent", async (req, res) => {
         tillDate: req.body.tillDate,
         startfromticket: req.body.startfromticket,
         location: req.body.location,
-        locationLink: req.body.locationLink,
+        locationlink: req.body.locationLink,
         image: req.body.image,
         backgroundImage: req.body.backgroundImage,
         price: req.body.price,
@@ -220,36 +221,36 @@ app.put("/editEvent", async (req, res) => {
   }
 });
 
-app.get("/cod/:id", async (req, res) => {
-  try {
+// app.get("/cod/:id", async (req, res) => {
+//   try {
     
-    const result = await eventCollection.findOne({ _id: req.params.id });
-    // console.log(result);
-    console.log(result.location);
-    let cordinates ;
-    let url = "";
-    url =
-      "http://api.mapbox.com/geocoding/v5/mapbox.places/" +
-      result.location +
-      ".json?access_token=pk.eyJ1Ijoic2lkZGhhbnRqaGEiLCJhIjoiY2xsb3R6MXAxMDEyczNmcWtxc213aDl1OCJ9.BvWsXmNOeaT_nC4Qzi3Mvg";
+//     const result = await eventCollection.findOne({ _id: req.params.id });
+//     // console.log(result);
+//     console.log(result.location);
+//     let cordinates ;
+//     let url = "";
+//     url =
+//       "http://api.mapbox.com/geocoding/v5/mapbox.places/" +
+//       result.location +
+//       ".json?access_token=pk.eyJ1Ijoic2lkZGhhbnRqaGEiLCJhIjoiY2xsb3R6MXAxMDEyczNmcWtxc213aDl1OCJ9.BvWsXmNOeaT_nC4Qzi3Mvg";
 
-    request(
-      {
-        url: url,
-        JSON: true,
-      },
-      (error, response) => {
-         cordinates = JSON.parse(response.body);
-         console.log("imlocation");
-        console.log(cordinates.features[0].center);
-        res.send(cordinates.features[0].center);
-      }
-    );
+//     request(
+//       {
+//         url: url,
+//         JSON: true,
+//       },
+//       (error, response) => {
+//          cordinates = JSON.parse(response.body);
+//          console.log("imlocation");
+//         console.log(cordinates.features[0].center);
+//         res.send(cordinates.features[0].center);
+//       }
+//     );
 
-  } catch (error) {
-    console.log(error);
-  }
-});
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
 
 
 

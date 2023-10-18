@@ -19,7 +19,7 @@
   
       // Set the data you want to encode
       const qrData = "location:" + this.location;
-  
+  console.log(qrData)
       // Add the data to the QRCode instance
       qr.addData(qrData);
       qr.make();
