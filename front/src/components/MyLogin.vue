@@ -32,7 +32,16 @@ try{
   console.log(res.data)
   console.log(res.status)
   if(res.status === 200){
-    router.push({ name: 'home' });
+    if(res.data.role==="Admin"){
+      router.push({ name: 'home' });
+    }
+    else if(res.data.role==="User"){
+      router.push({ name: 'userhome' });
+    }
+    else if(res.data.role==="Printer"){
+      router.push({ name: 'printerhome' });
+    }
+   
   }
 }
 catch(error){
