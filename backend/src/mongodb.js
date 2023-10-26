@@ -14,6 +14,7 @@ const User_data = new mongoose.Schema({
   },
   email: {
     type: String,
+    unique: true,
     required: true,
   },
   password: {
@@ -124,10 +125,17 @@ const booking_data = new mongoose.Schema({
         required:true
     },
    
-    // userId:{    
-    //     type:String,
-    //     required:true
-    // },
+    printerId:{    
+        type:String,
+       
+    },
+    userId:{
+      type:String,
+    },
+    title:{
+        type:String,
+        required:true
+    }
 })
 
 const booking = new mongoose.model("booking_data", booking_data);

@@ -17,6 +17,15 @@ import bookticket from "../components/printer/BookTicket.vue"
 import thankyou from "../components/printer/ThankYou.vue"
 import qrcode from "../components/printer/MyQr.vue"
 import fail from "../components/printer/PrinterFail.vue"
+import profile from "../components/printer/PrinterProfile.vue"
+import uprofile from "../components/user/UserProfile.vue"
+import ubook from "../components/user/userBookTicket.vue"
+import ufail from "../components/user/userFail.vue"
+import uhome from "../components/user/UserHome.vue"
+import unavbar from "../components/user/UserNavbar.vue"
+import uthankyou from "../components/user/userThankYou.vue"
+import mymiddler from "../components/myMiddler.vue"
+import forgot from "../components/ForGOt.vue"
 
 const routes = [
   {
@@ -91,7 +100,54 @@ const routes = [
     path: '/fail',
     name: 'fail',
     component: fail
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: profile
+  },
+
+  //user routes
+  {
+    path: '/uprofile',
+    name: 'uprofile',
+    component: uprofile
+  },
+  {
+    path: '/ubook/:id',
+    name: 'ubook',
+    component: ubook
+  },
+  {
+    path: '/ufail',
+    name: 'ufail',
+    component: ufail
+  },
+  {
+    path: '/uhome',
+    name: 'uhome',
+    component: uhome
+  },
+  {
+    path: '/unavbar',
+    name: 'unavbar',
+    component: unavbar
+  },
+  {
+    path: '/uthankyou',
+    name: 'uthankyou',
+    component: uthankyou
+  },
+  {
+    path: '/mymiddler/:data',
+    name: 'mymiddler',
+    component: mymiddler
+  },{
+    path: '/forgot/:email',
+    name: 'forgot',
+    component: forgot
   }
+  
 ]
 
 const router = createRouter({
