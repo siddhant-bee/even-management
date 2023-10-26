@@ -140,9 +140,10 @@ const fill = (event) => {
   }
 };
 
+//change
 const getEvents = async () => {
   try {
-    const res = await axios.get("http://localhost:5001/events");
+    const res = await axios.get("http://localhost:5001/eventsprinter");
     console.log(res.data);
     for (let event of res.data) {
       console.log(event);

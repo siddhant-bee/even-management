@@ -185,7 +185,7 @@ import { useUserInfoStore } from '../../store/userInfo';
 import axios from "axios";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
-import MyNavbar from "./PrinterNavbar.vue";
+import MyNavbar from "./UserNavbar.vue";
 import { ref, onMounted, watch } from "vue";
 import { useRoute,useRouter } from "vue-router";
 const userstore = useUserInfoStore()
@@ -265,7 +265,7 @@ watch(tickets, () => {
 const getevent = async () => {
   try {
     console.log("hello");
-    const res = await axios.get(`http://localhost:5001/event/${id.value}`);
+    const res = await axios.get(`http://localhost:5001/eventuser/${id.value}`);
     console.log(res.data);
     avaltick.value = res.data.noOfAvailableSlots;
     finalprice.value = res.data.price;
@@ -284,19 +284,19 @@ const getevent = async () => {
 
 const book = async () => {
   try {
-    const printerId = ref(userstore.getUser._id);
-    console.log(printerId.value);
-    let aticket = await axios.get(`http://localhost:5001/event/${id.value}`);
+    const userId = ref(userstore.getUser._id);
+    console.log(userId.value);
+    let aticket = await axios.get(`http://localhost:5001/eventuser/${id.value}`);
     console.log(aticket.data.noOfAvailableSlots);
     if (aticket.data.noOfAvailableSlots >= tickets.value) {
-      let res = await axios.post("http://localhost:5001/bookticket", {
+      let res = await axios.post("http://localhost:5001/bookticketuser", {
         name: name.value,
         email: email.value,
         phone: phone.value,
         noofticket: tickets.value,
         eventID: id.value,
         avaltick: avaltick.value,
-        printerId: printerId.value,
+        printerId: userId.value,
         title: title.value,
      
       });

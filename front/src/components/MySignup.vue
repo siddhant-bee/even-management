@@ -17,6 +17,8 @@
         />
         <button v-on:click="Signup">Sign Up</button>
         <br />
+        <button v-on:click="google">Sign Up with google</button>
+        <br />
         <router-link class="log" to="/">log in</router-link>
       </div>
     </div>
@@ -33,6 +35,10 @@ const name = ref("");
 const email = ref("");
 const password = ref("");
 
+
+const google =  () => {
+  window.location.href = "http://localhost:5001/auth/google";
+}
 const Signup = async () => {
   try {
     const res = await axios.post("http://localhost:5001/signup", {

@@ -1,17 +1,13 @@
 <template>
   <nav class="navbar bg-body-tertiary">
-    <div     id="navv">
+    <div id="navv">
       <div
-  
         class="container-fluid"
         data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasExample"
         aria-controls="offcanvasExample"
       >
-        <a  class="navbar-brand"
-          >EVENT MANAGEMENT</a
-        >
-        
+        <a class="navbar-brand">EVENT MANAGEMENT</a>
       </div>
 
       <div
@@ -46,7 +42,7 @@
                 </a>
               </li>
               <li>
-                <a  @click="addEvent" class="nav-link link-body-emphasis">
+                <a @click="addEvent" class="nav-link link-body-emphasis">
                   <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#speedometer2"></use>
                   </svg>
@@ -62,11 +58,11 @@
                 </a>
               </li>
               <li>
-                <a  @click="changeRole" class="nav-link link-body-emphasis">
+                <a @click="changeRole" class="nav-link link-body-emphasis">
                   <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#grid"></use>
                   </svg>
-              Change Role
+                  Change Role
                 </a>
               </li>
               <li>
@@ -74,7 +70,7 @@
                   <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#people-circle"></use>
                   </svg>
-                Payment
+                  Payment
                 </a>
               </li>
             </ul>
@@ -95,7 +91,7 @@
                 /> -->
                 <strong>mdo</strong>
               </a>
-              <ul class="dropdown-menu text-small shadow" >
+              <ul class="dropdown-menu text-small shadow">
                 <li><a class="dropdown-item" href="#">New project...</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li><a class="dropdown-item" href="#">Profile</a></li>
@@ -104,29 +100,29 @@
               </ul>
             </div>
           </div>
-          
         </div>
-        
       </div>
-      
     </div>
-    <form class="d-flex" role="search" >
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">Search</button>
-          <button class="btn btn-outline-success ms-2">Profile</button>
-        </form>
+    <form class="d-flex" role="search">
+      <input
+        class="form-control me-2"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button class="btn btn-outline-success" type="submit">Search</button>
+      <button class="btn btn-outline-success ms-2">Profile</button>
+      <button class="btn btn-outline-success ms-2" @click="log">Logout</button>
+    </form>
   </nav>
 </template>
 
 <script setup>
+import { useUserInfoStore } from "../../store/userInfo";
+const userstore = useUserInfoStore();
 import { useRouter } from "vue-router";
 const router = useRouter();
-
+import Cookies from "js-cookie";
 
 const addEvent = () => {
   console.log("event add kro");
@@ -143,12 +139,16 @@ const changeRole = () => {
 
 const liveEvent = () => {
   router.push({ name: "home" });
-}
+};
 const payment = () => {
   console.log("payment");
   // router.push({ name: "payment" });
 };
-
+const log = () => {
+  userstore.logout();
+  Cookies.remove('token');
+  router.push({ name: "login" });
+};
 </script>
 
 <style scoped>
@@ -156,11 +156,7 @@ const payment = () => {
   cursor: pointer;
 }
 
-
-
-
 #navv {
   display: flex;
-  
 }
 </style>

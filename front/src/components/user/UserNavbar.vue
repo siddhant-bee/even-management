@@ -9,7 +9,7 @@
           aria-controls="offcanvasExample"
         >
           <a  class="navbar-brand"
-            >Printer page</a
+            >User page</a
           >
           
         </div>
@@ -125,14 +125,19 @@
   </template>
   
   <script setup>
-    import { useUserInfoStore } from '../../store/userInfo';
-  const userstore = useUserInfoStore()
   import { useRouter } from "vue-router";
+  import { useUserInfoStore } from '../../store/userInfo';
   import Cookies from "js-cookie";
+  const userstore = useUserInfoStore()
   const router = useRouter();
   
   const send =() =>{
-    router.push({ name: "profile" });
+    router.push({ name: "uprofile" });
+  }
+  const log =() =>{
+    userstore.logout();
+    Cookies.remove('token');
+    router.push({ name: "login" });
   }
   const addEvent = () => {
     console.log("event add kro");
@@ -140,13 +145,9 @@
   };
   
   const home = () => {
-    router.push({ name: "printerhome" });
+    router.push({ name: "uhome" });
   };
-  const log =() =>{
-    userstore.logout();
-    Cookies.remove('token');
-    router.push({ name: "login" });
-  }
+  
   const changeRole = () => {
    
   };
